@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/create_playlist.css' %}">
+</head>
+<body>
+    {% include 'layout/home.htm' %}
+    <div class="form-container">
+        <div class="form">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>create playlist</h3>
+                <div class="image-upload">
+                    <label for="id_photo">
+                        <img id="preview" src="/media/default-cover.png" alt="Default Cover" class="upload-preview">
+                    </label>
+                    {{ form.photo }}
+                </div>
+                <div class="info">
+                    {{ form.title }}
+                    {{ form.description }}
+                    {{ form.photo }}
+                    {{form.songs}}
+                    <p>make public {{ form.public }}</p>
+                    <button class="create">create</button>
+                </div>                
+            </form>
+    </div>
+</body>
+</html>
+<script>
+    document.getElementById('id_photo').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

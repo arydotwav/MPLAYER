@@ -1,0 +1,91 @@
+{% include 'layout/home.htm' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/playlist_display.css' %}">
+</head>
+<body>
+    {% block content %}
+    <h2>Your library</h2>
+    <div class="filters"><button id="lists">lists</button><button id="albums">albums</button><button id="reset">x</button></div>
+    <div class="playlists">
+        <div class="add">
+            <a href="{%url 'createplaylist' %}"><img src="{% static 'img/add.png' %}" alt=""></a>
+        </div>
+    {% for play in playlist %}
+    <div class="playlist">
+        <a href="{% url 'showplaylist' play.id %}">
+            <br>{% if play.photo %}
+            <img id="cover" src="{{ play.photo.url }}" alt="?">
+            <br><p class="p-name">{{play.title | truncatechars:15}} </p><p class="list">list • {{user.profile.nickname}} </p>
+            {% else %}
+            <p>no photo</p>
+            <br><p class="p-name">{{play.title | truncatechars:15}} </p><p class="list">list • {{user.profile.nickname}} </p>
+            {% endif %}
+        </a>
+    </div>
+    {% endfor %}
+        {% for album in albums %}
+        {% if album.like.exists %}
+        <div class="album">
+            <a href="{% url 'album' album.id%}">
+                {% if album.cover %}
+                <br><img src="{{ album.cover.url }}" alt="">
+                {% endif %}
+                <p class="p-name">{{album.title | truncatechars:15}}</p>
+            </a>
+            <p class="list">album • <a href="{% url 'artist' album.artist.id %}">{{album.artist}}</a></p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
+<script>
+    // scripts.js
+    const reset = document.getElementById('reset');
+    const lists = document.getElementById('lists');
+    const albums = document.getElementById('albums');
+    const playlist = document.getElementsByClassName('playlist');
+    const album = document.getElementsByClassName('album');
+
+    lists.addEventListener('click', () => {
+        reset.style.display = 'flex';
+        for (let i = 0; i < album.length; i++) {
+            album[i].style.display = 'none';
+        }
+
+        for (let i = 0; i < playlist.length; i++) {
+            playlist[i].style.display = 'block'
+        }
+    });
+
+    albums.addEventListener('click', () => {
+        reset.style.display = 'flex';
+        for (let i = 0; i < playlist.length; i++){
+            playlist[i].style.display = "none";
+        }
+
+        for (let i = 0; i < album.length; i++){
+            album[i].style.display = 'block'
+        }
+    
+    })
+
+    reset.addEventListener('click', () => {
+        for (let i = 0; i < album.length; i++){
+            album[i].style.display = 'block';
+            reset.style.display = 'none';
+        }
+
+        for (let i = 0; i < playlist.length; i++){
+            playlist[i].style.display = 'block';
+            reset.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

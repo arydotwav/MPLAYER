@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/show_playlist.css' %}">
+</head>
+<body>
+    {% include 'layout/home.htm' %}
+    {% block content %}
+    <div class="display">
+        <a href="{% url 'update_playlist' playlist.id %}">
+            <div class="separation">
+                {% if playlist.photo %}
+                    <img id="cover" src="{{ playlist.photo.url }}" alt="Playlist Cover">
+                {% endif %}
+                <p class="p-title"> {{ playlist.title }} </p>
+                <p class="p-description">{{ playlist.description }}</p>
+                {% if playlist.public %}
+                <p class="public">public</p>
+                {% else %}
+                <p class="public">private</p>
+                {% endif %}
+                <p class="editar">editar</p>
+            </div>
+        </a>
+    </div>
+    <div class="div-songs">
+        <div class="songs">
+            {% for song in songs %}
+            <div class="cards song-details"  onclick="togglePlayPause(this.closest('.song-details'))">
+                <div class="cover">
+                    {% if song.songcover %}
+                        <img id="portada" loading="lazy" src="{{ song.songcover.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="rest">
+                    <p>{{ song.title }}</p>
+                    {% if song.artist %}
+                    <a href="{% url 'artist' song.artist.id %}">{{song.artist}}</a>
+                    {% endif %}
+                </div>
+                <div class="play-button">
+                    {% if song.audio_file %}
+                    <div class="audio-div">
+                        <audio id="audioPlayer" src="{{ song.audio_file.url }}" type="audio/mpeg"></audio>
+                        <button id="playPauseBtn" class="play-btn">
+                            <img id="playIcon" src="{% static 'img/play.png' %}" alt="Play" style="display: block;">
+                            <img id="pauseIcon" src="{% static 'img/pause.png' %}" alt="Pause" style="display: none;">
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
+<script>
+ var audioPlayers = document.querySelectorAll('audio[id^="audioPlayer"]');
+    var currentAudio = null;
+
+    // Mueve la función togglePlayPause fuera del DOMContentLoaded para hacerla accesible globalmente
+    window.togglePlayPause = function(songDetailElement) {
+        var audioPlayer = songDetailElement.querySelector('audio');
+        var playIcon = songDetailElement.querySelector('#playIcon');
+        var pauseIcon = songDetailElement.querySelector('#pauseIcon');
+
+        // Si se está reproduciendo otro audio, pausar el audio actual y restablecer el botón
+        if (currentAudio && currentAudio !== audioPlayer) {
+            currentAudio.pause();
+            resetPlayPauseButton(currentAudio.closest('.song-details'));
+        }
+
+        // Reproducir o pausar el audio seleccionado
+        if (audioPlayer.paused) {
+            audioPlayer.volume = 0.2;
+            audioPlayer.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            currentAudio = audioPlayer;
+
+            // Añade la clase .playing al contenedor del div
+            songDetailElement.closest('.song-details').classList.add('playing');
+        } else {
+            audioPlayer.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            currentAudio = null;
+
+            // Remueve la clase .playing del contenedor del div
+            songDetailElement.closest('.cards').classList.remove('playing');
+        }
+    };
+
+    // Evento para manejar el final de la canción
+    audioPlayers.forEach(function(audioPlayer) {
+        audioPlayer.addEventListener('ended', function() {
+            resetPlayPauseButton(audioPlayer.closest('.song-details'));
+            currentAudio = null;
+
+            // Remueve la clase .playing cuando el audio termina
+            audioPlayer.closest('.cards').classList.remove('playing');
+        });
+    });
+
+    // Función para restablecer el botón de reproducción/pausa
+    function resetPlayPauseButton(songDetailElement) {
+        var playIcon = songDetailElement.querySelector('#playIcon');
+        var pauseIcon = songDetailElement.querySelector('#pauseIcon');
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+
+        // Remueve la clase .playing del contenedor del div
+        songDetailElement.closest('.cards').classList.remove('playing');
+    }
+    //
+
+    
+
+</script>

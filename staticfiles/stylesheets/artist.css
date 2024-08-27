@@ -1,0 +1,57 @@
+.top {
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden; /* Para asegurarse de que el pseudo-elemento no se desborde */
+}
+
+.top::before {
+    content: ''; /* Necesario para que el pseudo-elemento se muestre */
+    position: absolute; /* Posiciona el pseudo-elemento */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit; /* Hereda la imagen de fondo */
+    background-size: inherit; /* Hereda el tamaño del fondo */
+    background-repeat: inherit; /* Hereda la repetición del fondo */
+    filter: brightness(0.5); /* Aplica el filtro de brillo solo al pseudo-elemento */
+    z-index: 0; /* Asegura que el pseudo-elemento esté detrás del contenido */
+}
+
+.top > * {
+    position: relative;
+    z-index: 1; /* Asegura que el contenido esté sobre el pseudo-elemento */
+}
+
+.name{
+    color: white;
+    font-size: 65px;
+    font-family: poppins;
+    font-weight: 600;
+    margin-left: 35px;
+    margin-bottom: 0;
+}
+
+.ver{
+    margin-left: 35px;
+    color: white;
+    margin-top: 100px;
+    font-weight: 600;
+    font-family: poppins;
+
+}
+
+.followers{
+    margin-left: 25px;
+    font-family: poppins;
+    color: white;
+    margin-top: -10px;
+    font-weight: 300;
+    padding: 15px;
+}
+
+#a-pic{
+    width: 10px;
+    visibility: hidden;
+}

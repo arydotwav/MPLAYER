@@ -1,0 +1,14 @@
+<!-- templates/includes/song_list.html -->
+<div class="songs">
+    {% for song in songs %}
+        <p>{{ song.title }}</p>
+        {% if song.audio_file %}
+            <br>
+            <audio controls>
+                <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <a href="{% url 'artist' song.artist.id %}">{{ song.artist.name }}</a>
+        {% endif %}
+    {% endfor %}
+</div>

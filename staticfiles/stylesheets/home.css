@@ -1,0 +1,101 @@
+body{
+    background: rgb(13 12 28);
+    margin: none;
+    padding: none;
+    height: 100%;
+}
+
+html, body{
+    padding: 0;
+    margin: 0;
+}
+
+h2{
+    font-size: 100px;
+}
+
+nav ul{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    list-style: none;
+    gap: 100px;
+    align-items: center;
+    font-family: poppins;
+    margin: 0;
+    padding: 0;
+}
+
+nav a{
+    text-decoration: none;
+    font-weight: 400;
+    padding: 10px;
+    display: inline-block;
+    width: 100px; 
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+nav li{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+nav a:hover{
+    background-color: rgba(26, 26, 26, 0.644);
+    border-radius: 50px;
+}
+
+nav a:visited{
+    color: rgb(255, 255, 255);
+}
+
+nav {
+    position: sticky;
+    z-index: 100;
+    display: flex;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    height: 85px;
+    align-items: center;
+    justify-content: center;
+}
+
+#logout{
+    color: rgb(110, 110, 110);
+}
+
+#logout:hover{
+    background-color: rgba(26, 26, 26, 0.644);
+}
+
+@media screen and (max-width: 768px) {
+    nav ul{
+        gap: 9px;
+        font-size: 12px;
+    }
+
+}
+
+#profile{
+    line-height: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 50px;
+    border-radius: 100%;
+}
+.pfp{
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 100%;
+    color: white;
+}
+
+#profile a:hover{
+    background-color: rgba(73, 69, 88, 0.452);
+}

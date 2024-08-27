@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stylesheets/create_playlist.css' %}">
+</head>
+<body>
+    {% include 'layout/home.htm' %}
+    <div class="form-container">
+        <div class="form">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>edit info</h3>
+                <div class="image-upload">
+                    <label for="id_photo">
+                        <img src="{% if playlist.photo %}{{ playlist.photo.url }}{% else %}path/to/default-image.png{% endif %}" alt="Click to upload" class="upload-preview">
+                    </label>
+                    {{ form.photo }} 
+                </div>
+                <div class="info">
+                    {{ form.title }}
+                    {{ form.description }}
+                    {{form.songs}}
+                    <p>make public {{ form.public }}</p>
+                    <button type="submit" class="create">update</button>
+                </div>
+            </form>
+            <button class="delete" type="submit">Eliminar</button>
+            <div class="confirm">
+                <h2>¿Estás seguro de que deseas eliminar la playlist "{{ playlist.title }}"?</h2>
+                <p>Esta acción no se puede deshacer.</p>
+
+                <form method="post" action="{% url 'deleteplaylist' playlist.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                    <a href="{% url 'update_playlist' playlist.id %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const form = document.querySelector('form');
+    const confirm = document.querySelector('.confirm');
+    const deleteBtn = document.querySelector('.delete');
+    deleteBtn.addEventListener('click', () => {
+        confirm.style.display = 'block';
+        form.style.display = 'none';
+    })
+</script>

@@ -1,0 +1,138 @@
+.form-container {
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+}
+
+.confirm{
+    display: none;
+}
+
+.form-title{
+    width: 100%;
+    height:30px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    font-family: poppins;
+}
+.image-upload{
+    display: flex;
+    justify-content: center;
+    float: left;
+    align-items: center;
+    align-content: center;
+}
+.upload-preview{
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    margin-right: 30px;
+    box-shadow: 0px 4px 6px 1px rgba(55, 64, 151, 0.5);
+}
+
+.upload-preview:hover{
+    filter: brightness(0.8);
+}
+
+.create{
+    border-radius: 25px;
+    font-family: poppins;
+    background-color: rgb(66 36 193);
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 14px 2px;
+}
+
+.create:hover{
+    background-color: rgb(46, 22, 153);
+    font-size: 17.5px;
+}
+
+.form-description{
+    width: 100%;
+    height:100px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    font-family: poppins;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    width: 40%;
+    font-family: poppins;
+    color: white;
+    background-color: rgba(35, 30, 63, 0.397);
+    padding: 20px;
+    box-sizing: border-box;
+}
+.form-photo{
+    display: none;
+}
+
+.info p{
+    font-size: 13.5px;
+    
+    margin: 0;
+    padding: 0;
+}
+
+.pic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.image-upload label {
+    cursor: pointer; 
+}
+
+.upload-preview {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover; 
+}
+
+.form-songs {
+    width: 100%; /* Asegura que el select use todo el ancho disponible */
+    height: 200px; /* Establece una altura para hacer visible más opciones */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: 'Poppins', sans-serif; /* Fuente más moderna */
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    overflow-y: auto; /* Añade un scroll si hay muchas opciones */
+}
+
+.form-songs option {
+    padding: 5px;
+    margin: 2px 0;
+    border-bottom: 1px solid #e5e5e5;
+    cursor: pointer;
+}
+
+.form-songs option:hover {
+    background-color: #e2e8f0;
+}

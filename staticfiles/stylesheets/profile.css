@@ -1,0 +1,150 @@
+#logout{
+    z-index: 999999;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: poppins;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: -10px;
+    border-radius: 50px;
+}
+
+*{
+    text-decoration: none;
+}
+
+.profile-pic{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user{
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: poppins;
+    color: white
+}
+
+
+.data-pic{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.titulo{
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+    color: white;
+    font-family: poppins;
+}
+
+.lista{
+    font-family: poppins;
+    font-size: 14px;
+    color: rgb(116, 116, 116);
+    font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+    .titulo{
+        font-size: 15px;
+    }
+    .playlist a, p{
+        font-size: 10px;
+    }
+}
+.playlist-profile{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 25px;
+    gap: 50px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.data-pic:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.lista{
+    margin-top: -15px;
+}
+
+.profile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgb(27, 26, 51);
+    background: linear-gradient(273deg, rgb(21, 19, 53) 0%, rgb(23, 23, 48) 35%, rgba(0, 0, 0, 1) 78%, rgb(0 0 0) 100%);
+    height: 300px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgb(23, 21, 49);
+}
+
+.profile::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: rgb(27, 26, 51);
+    background: linear-gradient(to bottom, rgba(23, 12, 175, 0) 0%, rgb(20 19 39) 100%);
+    pointer-events: none;
+}
+
+.user{
+    padding: 10px;
+    font-weight: 800;
+}
+#profile-pic {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+.editar {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0);
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    font-family: poppins;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s ease, color 0.3s ease;
+}
+
+.profile a:hover .editar {
+    opacity: 1;
+    visibility: visible;
+    color: white;
+}
+
+#profile-pic:hover {
+    filter: brightness(0.6);
+}

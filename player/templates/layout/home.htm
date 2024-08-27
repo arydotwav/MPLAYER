@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WNRPLAYER</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/home.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">home</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'library' %}">library</a></li>
+                <li><a href="{% url 'saved' %}">saved</a></li>
+                {% if user.profile.pfp %}
+                <div id="profile">
+                    <a href="{% url 'profile' user.id %}">
+                        <img class="pfp" src="{{ user.profile.pfp.url }}" alt="Perfil">
+                    </a>
+                </div>
+                {% else %}
+                    <a href="{% url 'profile' user.id %}"><p>{{profile.nickname}}</p></a>
+                {% endif %}
+            {% else %}
+                <li><a href="{% url 'signup' %}">sign up</a></li>
+            {% endif %}
+                <li><form action="{% url 'results' %}" method="POST">
+                    {% csrf_token %} 
+                    <input type="text" name="q" placeholder="search">
+                </form></li>
+        </ul>
+    </nav>
+    <div class="reco">
+        {% if rec_artist %}
+        <a href="{% url 'artist' rec_artist.id %}">
+            <p>{{rec_artist.name}}</p>
+            {% if rec_artist.pic %}
+            <img src="{{ rec_artist.pic.url }}" alt="">
+            {% else %}
+                <p>no pic</p>
+            {% endif %}
+        </a>
+        {% endif %}
+        {% if rec_playlist %}
+        <a href="{% url 'showplaylist' rec_playlist.id %}">
+            <p>{{rec_playlist.title}}</p>
+            <img src="{{ rec_playlist.photo.url }}" alt="">
+        </a>
+        {% endif %}
+
+        {% for album in rec_albums %}
+        <a href="{% url 'album' album.id %}">
+            <p>{{album.title}}</p>
+            <p>{{album.artist}}</p>
+            {% if album.cover %}
+            <img src="{{ album.cover.url }}" alt="cf">
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+</body>
+{% block content %}
+{% endblock %}
+</html>
+<style>
+    .pfp{
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    
+</style>
