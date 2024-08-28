@@ -1,0 +1,73 @@
+
+.reco{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+p{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+
+#artist-img{
+    border-radius: 50%;
+}
+
+h1{
+    color: white;
+    font-family: poppins;
+    text-align: center;
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+    margin-top: 50px;
+}
+
+.title p{
+    color: rgb(100, 100, 100);
+    font-family: poppins;
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.all{
+    display: flex;
+    flex-direction: row;
+    font-family: poppins;
+    background: linear-gradient(to bottom, rgba(133, 15, 179, 0.493) 0%, rgb(20 19 39) 100%);
+    border-radius: 0.5em;
+    text-align: center;
+    gap: 15px;
+}
+
+.all p{
+    font-weight: 600;
+    margin-bottom: 100px;
+}
+
+.reco img{
+    margin: 7em 2em 0 2em;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    object-fit: cover;
+}
