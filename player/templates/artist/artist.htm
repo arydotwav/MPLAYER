@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="{% static 'stylesheets/artist.css' %}">
 </head>
 <body>
-    {% include 'layout/home.htm' %}
+    {% include 'layout/navbar.htm' %}
     {% block content %}
-    <div class="all">
+    <div class="all-artist">
         <div class="top" {% if artist.pic %} style="background-image: url({{artist.pic.url}});" {% endif %}>
             {% if artist.pic %}
                 <img id="a-pic" src="{{ artist.pic.url }}" alt="">

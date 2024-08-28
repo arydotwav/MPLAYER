@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/initial.css' %}">
+</head>
+<body>
+    <div class="reco">
+        {% if user.is_authenticated %}
+        <div class="title">
+            <h1>Welcome Back!</h1><p>Here are some recommendations for you</p>
+        </div>
+        {% else %}
+        <div class="title">
+            <h1>Welcome!</h1><p>We see you are new here. <br>Want some recommendations?</p>
+        </div>
+        {% endif %}
+        <div class="all">
+            {% if rec_artist %}
+        <a href="{% url 'artist' rec_artist.id %}">
+            {% if rec_artist.pic %}
+            <img id="artist-img" src="{{ rec_artist.pic.url }}" alt="">
+            {% else %}
+                <p>no pic</p>
+            {% endif %}
+            <p>{{rec_artist.name}}</p>
+        </a>
+        {% endif %}
+        {% if rec_playlist %}
+        <a href="{% url 'showplaylist' rec_playlist.id %}">
+            <img src="{{ rec_playlist.photo.url }}" alt="">
+            <p>{{rec_playlist.title | truncatechars:15}}</p>
+        {% endif %}
+        {% for album in rec_albums %}
+    <a href="{% url 'album' album.id %}">
+        {% if album.cover %}
+        <img src="{{ album.cover.url }}" alt="cf">
+        {% endif %}
+        <p>{{album.title | truncatechars:15}}</p>
+    {% endfor %}
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
