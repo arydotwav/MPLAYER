@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/profile.css' %}">
 </head>
 <body>
-  {% include 'layout/home.htm' %}
+  {% include 'layout/navbar.htm' %}
   {% block content %}
     <div class="profile">
       <a href="{% url 'updateprofile' user.profile.id %}">

@@ -1,16 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/signin.css' %}">
 </head>
 <body>
-    <h3>sign in</h3>
     <form method="post">
     {% csrf_token %}
+        <h1>LOG IN</h1>
         {{form}}
-        <button>sign in</button>
+        <button type="submit" class="btn">Sign in</button>
     </form>
 </body>
 </html>

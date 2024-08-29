@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    {% include 'layout/navbar.htm' %}
     <h2>Upload a Song</h2>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}

@@ -3,6 +3,7 @@
     flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
     gap: 16px; /* Espacio entre los elementos */
     border: 1px solid black;
+    background: linear-gradient(to bottom, rgb(20 19 39) 0%, rgba(133, 15, 179, 0.493) 100%);
 }
 #reset{
     display: none;
