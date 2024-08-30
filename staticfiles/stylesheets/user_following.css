@@ -1,0 +1,61 @@
+.a img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100%;
+    box-shadow:  0 0 5px 0 rgba(0,0,0,0.5);
+}
+
+.title-f{
+    font-family: poppins;
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.artist{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 50px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.artist:hover{
+    img{
+        box-shadow:  0 0 15px 3px rgba(0, 0, 0, 0.637);
+    }
+}
+
+a{
+    text-align: center;
+    color: white;
+    font-family: poppins;
+    text-decoration: none;
+}
+
+.div-following{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.name-a{	
+    font-size: 20px;
+    padding: 0;
+    margin: 3px;
+    font-weight: 500;
+}
+
+.p{	
+    font-size: 15px;
+    margin-top: -10px;
+    padding: 0;
+    color: rgb(100, 100, 100);
+}

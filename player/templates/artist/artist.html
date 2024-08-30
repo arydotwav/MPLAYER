@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'stylesheets/artist.css' %}">
 </head>
 <body>
-    {% include 'layout/navbar.htm' %}
+    {% include 'layout/navbar.html' %}
     {% block content %}
     <div class="all-artist">
         <div class="top" {% if artist.pic %} style="background-image: url({{artist.pic.url}});" {% endif %}>
@@ -18,25 +18,23 @@
             <p class="ver">Verified Artist</p>
             <p class="name">{{artist.name}}</p>
             <p>{{artist.bio}}</p>
-                <p class="followers">{{artist.liked.count}} followers</p>
+                <p class="followers">{{artist.followers.count}} followers</p>
         </div>
         <div class="bottom">
             {% if user.is_authenticated %}
             {% if is_following %}
-                <!-- Botón para dejar de seguir -->
                 <form action="{% url 'unfollow' artist.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit">Dejar de Seguir</button>
                 </form>
             {% else %}
-                <!-- Botón para seguir -->
                 <form action="{% url 'follow' artist.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit">Seguir</button>
                 </form>
             {% endif %}
         {% else %}
-            <p>Por favor, <a href="{% url 'login' %}">inicia sesión</a> para seguir a este artista.</p>
+            <p>Por favor, <a href="{% url 'signup' %}">inicia sesión</a> para seguir a este artista.</p>
         {% endif %}
         {% for song in songs %}
             {{song.title}}

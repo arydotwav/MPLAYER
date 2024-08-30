@@ -8,9 +8,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/playlist_display.css' %}">
 </head>
 <body>
-    {% include 'layout/navbar.htm' %}
+    {% include 'layout/navbar.html' %}
     {% block content %}
-    <h2>Your library</h2>
+    <h1>Your library</h1>
     <div class="filters"><button id="lists">lists</button><button id="albums">albums</button><button id="reset">x</button></div>
     <div class="playlists">
         <div class="add">
@@ -29,19 +29,19 @@
         </a>
     </div>
     {% endfor %}
-        {% for album in albums %}
-        {% if album.like.exists %}
-        <div class="album">
-            <a href="{% url 'album' album.id%}">
-                {% if album.cover %}
-                <br><img src="{{ album.cover.url }}" alt="">
-                {% endif %}
-                <p class="p-name">{{album.title | truncatechars:15}}</p>
-            </a>
-            <p class="list">album • <a href="{% url 'artist' album.artist.id %}">{{album.artist}}</a></p>
-        </div>
-        {% endif %}
-        {% endfor %}
+    {% for album in albums %}
+    {% if request.user in album.like.all %}
+    <div class="album">
+        <a href="{% url 'album' album.id%}">
+            {% if album.cover %}
+            <br><img id="cover" src="{{ album.cover.url }}" alt="">
+            {% endif %}
+            <p class="p-name">{{album.title | truncatechars:15}}</p>
+        </a>
+        <p class="list">album • <a href="{% url 'artist' album.artist.id %}">{{album.artist}}</a></p>
+    </div>
+    {% endif %}
+    {% endfor %}
     </div>
 </body>
 </html>

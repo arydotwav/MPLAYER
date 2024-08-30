@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% include 'layout/navbar.html' %}
+    <p>hola</p>
+        <p>{{album.title}}</p>
+        <p>{{album.artist}}</p>
+        <img src="{{ album.cover.url }}" alt="">
+
+        <div class="songs">
+            {% for song in album.song_set.all %}
+                <p>{{song.title}}</p>
+                {% if song.audio_file %}
+                    <audio controls>
+                        <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                {% endif %}
+            {% endfor %}
+        </div>
+</body>
+</html>

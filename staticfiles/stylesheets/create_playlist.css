@@ -73,7 +73,7 @@
     width: 40%;
     font-family: poppins;
     color: white;
-    background-color: rgba(35, 30, 63, 0.397);
+    background: linear-gradient(to bottom, rgb(20 19 39) 0%, rgba(133, 15, 179, 0.493) 100%);
     padding: 20px;
     box-sizing: border-box;
 }
@@ -119,11 +119,11 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
-    font-family: 'Poppins', sans-serif; /* Fuente más moderna */
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     color: #333;
     outline: none;
-    overflow-y: auto; /* Añade un scroll si hay muchas opciones */
+    overflow-y: auto; 
 }
 
 .form-songs option {
@@ -135,4 +135,16 @@
 
 .form-songs option:hover {
     background-color: #e2e8f0;
+}
+
+@media screen and  (max-width: 1200px) {
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .image-upload {
+        float: none;
+    }
+    
 }

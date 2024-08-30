@@ -20,6 +20,7 @@ urlpatterns = [
     path('artist/<int:artist_id>/unfollow', views.unfollow_artist, name='unfollow'),
     path('artist/<int:artist_id>/follow', views.follow_artist, name='follow'),
     path('results/', views.search, name='results'),
+    path('profile/<int:profile_id>/following/', views.followingView, name='following'),
     path('playlist/<int:playlist_id>/delete', views.deleteplaylist, name='deleteplaylist'),
     path('profile/<int:user_id>/', views.profile, name='profile'),  # Muestra el perfil basado en el user_id
     path('profile/<int:profile_id>/update/', views.update_profile, name='updateprofile'),  # Actualiza el perfil basado en el profile_id

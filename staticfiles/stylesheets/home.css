@@ -20,7 +20,7 @@ nav ul{
     align-content: center;
     justify-content: center;
     list-style: none;
-    gap: 100px;
+    gap: 80px;
     align-items: center;
     font-family: poppins;
     margin: 0;
@@ -30,9 +30,9 @@ nav ul{
 nav a{
     text-decoration: none;
     font-weight: 400;
-    padding: 10px;
     display: inline-block;
     width: 100px; 
+    padding: 10px;
     text-align: center;
     text-transform: uppercase;
     font-weight: 800;
@@ -45,8 +45,7 @@ nav li{
 }
 
 nav a:hover{
-    background-color: rgba(26, 26, 26, 0.644);
-    border-radius: 50px;
+    filter: brightness(0.8);
 }
 
 nav a:visited{
@@ -64,20 +63,44 @@ nav {
     justify-content: center;
 }
 
+#lib{
+    width: 35px;
+    height: auto;
+    padding: 0;
+    margin-top: 5px;
+}
+#liked{
+    width: 25px;
+    height: auto;
+    padding: 0;
+    margin-top: 5px;
+}
+
+#home{
+    width: 30px;
+    height: auto;
+    padding: 0;
+    margin-top: 5px;
+}
+
 #logout{
     color: rgb(110, 110, 110);
 }
 
-#logout:hover{
-    background-color: rgba(26, 26, 26, 0.644);
-}
 
 @media screen and (max-width: 768px) {
     nav ul{
         gap: 9px;
         font-size: 12px;
     }
+    #home{
+        width: 20px;
+        margin-left: 10px;
+    }
 
+    nav a{
+        padding: 0;
+    }
 }
 
 #profile{
@@ -97,7 +120,8 @@ nav {
 }
 
 #profile a:hover{
-    background-color: rgba(73, 69, 88, 0.452);
+    background-color: rgba(85, 39, 172, 0.452);
+    border-radius: 50%;
 }
 
 

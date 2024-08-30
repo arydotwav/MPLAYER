@@ -20,7 +20,7 @@
         {% endif %}
         <div class="all">
             {% if rec_artist %}
-        <a href="{% url 'artist' rec_artist.id %}">
+        <a class="a-artist" href="{% url 'artist' rec_artist.id %}">
             {% if rec_artist.pic %}
             <img id="artist-img" src="{{ rec_artist.pic.url }}" alt="">
             {% else %}
@@ -30,7 +30,7 @@
         </a>
         {% endif %}
         {% if rec_playlist %}
-        <a href="{% url 'showplaylist' rec_playlist.id %}">
+        <a class="p-playlist" href="{% url 'showplaylist' rec_playlist.id %}">
             <img src="{{ rec_playlist.photo.url }}" alt="">
             <p>{{rec_playlist.title | truncatechars:15}}</p>
         {% endif %}
@@ -39,7 +39,7 @@
         {% if album.cover %}
         <img src="{{ album.cover.url }}" alt="cf">
         {% endif %}
-        <p>{{album.title | truncatechars:15}}</p>
+        <p class="a-title">{{album.title | truncatechars:15}}</p>
     {% endfor %}
         </div>
     </div>

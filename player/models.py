@@ -1,25 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-class Profile(models.Model):
-    nickname = models.CharField(max_length=50, blank=True, null=True)
-    pfp = models.ImageField(upload_to='profile_pics/', default='default_pfp.jpg')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    followers = models.ManyToManyField(User, related_name='user_followers', blank=True)
-    
-    def __str__(self):
-        return f"{self.user}"
-    
+# Create your models here.   
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
     bio = models.TextField(blank=True)
     pic = models.ImageField(upload_to='artist_pic/', blank=True, null=True)
-    liked = models.ManyToManyField(User, related_name='liked_by', blank=True)
+    followers = models.ManyToManyField(User, related_name='followers', blank=True)
     
     def __str__(self):
         return self.name
+
+class Profile(models.Model):
+    nickname = models.CharField(max_length=50, blank=True, null=True)
+    pfp = models.ImageField(upload_to='profile_pics/', default='default_pfp.jpg')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    followers = models.ManyToManyField(User, related_name='user_followers', blank=True)
+    following = models.ManyToManyField('self', symmetrical=False, related_name='user_following', blank=True)
+    #el symmetrical=False dice que la relacion no necesariamente es simetrica, que si el user 1 sigue el 2, 
+    #no significa que el 2 siga el 1
+    followed_artists = models.ManyToManyField(Artist, related_name='followed_artists', blank=True)
+    
+    def __str__(self):
+        return f"{self.user}"  
     
 class Album(models.Model):
     title = models.CharField(max_length=100)

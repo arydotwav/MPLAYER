@@ -48,7 +48,9 @@ h1{
     flex-direction: column;
     gap: 20px;
 }
-
+a:hover{
+    img {filter: brightness(0.8);}
+}
 .all{
     display: flex;
     flex-direction: row;
@@ -70,4 +72,50 @@ h1{
     height: 150px;
     border-radius: 5px;
     object-fit: cover;
+}
+
+@media screen and (max-width: 820px) {
+    .all{
+        display: flex;
+        gap: 10px;
+        width: 80%;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-family: poppins;
+        background: linear-gradient(to bottom, rgba(133, 15, 179, 0.493) 0%, rgb(20 19 39) 100%);
+        border-radius: 0.5em;
+        text-align: center;
+    }
+    .a-artist{
+        margin-bottom: -135px;
+    }
+
+    .p-playlist{
+        margin-bottom: -135px;
+    }
+
+    .a-title{
+        margin-bottom: 100px;
+    }
+    .all > div{
+        flex: 0 0 0 0 calc(45% - 12px); 
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .all img{
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .all img{
+        width: 80px;
+        height: 80px;
+    }
+
+    .all p{
+        font-size: 12px;
+    }
 }

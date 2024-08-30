@@ -1,13 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{%  static 'stylesheets/results.css' %}">
 </head>
 <body>
-    {% include 'layout/home.htm' %}
+    {% include 'layout/navbar.html' %}
     {% if songs or artists or albums %}
+    <div class="results">
         {% for song in songs%}
             <p>{{song.title}}</p>
             {% if song.songcover %}
@@ -21,12 +24,15 @@
             {% endif %}
         {% endfor %}
         {% for album in albums %}
+        <a href="{% url 'album' album.id %}">
             <p>{{album.title}}</p>
             <p>{{album.artist}}</p>
             {% if album.cover %}
                 <img src="{{album.cover.url}}" alt="">
             {% endif %}
+        </a>
         {% endfor %}
+    </div>
     {% endif %}
 
    

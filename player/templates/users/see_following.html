@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/user_following.css' %}">
+</head>
+<body>
+    {% include 'layout/navbar.html' %}
+    <div class="div-following">
+    <p class="title-f">Following</p>
+    {% for artist in user.profile.followed_artists.all %}
+        <div class="artist">
+        <a href="{% url 'artist' artist.id %}">
+            <div class="a"> 
+                {% if artist.pic %}
+                    <img src="{{artist.pic.url}}" alt="">
+                {% endif %}
+            </div>
+            <div class="name"><p class="name-a">{{artist.name}}</p><p class="p">Profile</p></div>
+        </a>
+        </div>
+    {% endfor %}
+    </div>
+</body>

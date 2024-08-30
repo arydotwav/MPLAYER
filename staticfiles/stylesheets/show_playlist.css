@@ -32,7 +32,7 @@
     font-size: 14px;
     color: rgb(131, 131, 131);
     margin: 0;
-    color: rgb(76, 0, 255);
+    color: rgb(89, 85, 139);
     font-weight: 500;
 }
 
@@ -64,8 +64,12 @@
 }
 
 .cards a{
-    color: rgb(59, 54, 85);
+    color: rgb(95 80 173);
 
+}
+
+.cards a:hover{
+    text-decoration: underline;
 }
 
 a{
@@ -85,7 +89,7 @@ a{
     .play-button{
         display: flex;
     }
-    background-color: rgba(51, 18, 139, 0.226);
+    background-color: rgba(18, 60, 73, 0.226);
 }
 
 
@@ -153,8 +157,8 @@ audio {
 }
 
 .song-details.playing {
-    background-color: rgba(50, 50, 150, 0.7); /* Cambia el color a un tono diferente */
-    transition: background-color 0.3s ease; /* Añade una transición suave */
+    background-color: rgb(123 75 161 / 70%); 
+    transition: background-color 0.3s ease; 
     border-radius: 5px;
 }
 
@@ -185,7 +189,7 @@ audio {
         margin-right: 35px;
     }
     .play-button {
-        visibility: hidden; /* Oculta el botón en dispositivos móviles */
+        visibility: hidden; 
     }
 }
 

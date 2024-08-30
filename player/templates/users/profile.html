@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/profile.css' %}">
+</head>
+<body>
+  {% include 'layout/navbar.html' %}
+  {% block content %}
+  <div class="profile">
+    <div class="image-section">
+      <a href="{% url 'updateprofile' user.profile.id %}">
+        <img src="{{ profile.pfp.url }}" alt="{{ user.username }}'s profile picture" id="profile-pic">
+        <p class="editar">editar</p>
+      </a>
+    </div>
+    <div class="info-section">
+      <p class="user">{{profile.nickname}}</p>
+      <div class="followers">
+        <p>0 followers</p><p>•</p>
+        <a href="{% url 'following' user.profile.id %}"><p>following {{ user.profile.following.count|add:user.profile.followed_artists.count }} users</p></a>
+      </div>
+  
+      {% if not is_owner %}
+        {% if request.user in profile.followers.all %}
+          <form method="post" action="{% url 'unfollow' artist.id %}">
+            {% csrf_token %}
+            <button type="submit">Unfollow</button>
+          </form>
+        {% else %}
+          <form method="post" action="{% url 'follow' artist.id %}">
+            {% csrf_token %}
+            <button type="submit">Follow</button>
+          </form>
+        {% endif %}
+      {% endif %}
+      <a id="logout" href="{% url 'logout' %}">log out</a>
+    </div>
+  </div>
+  
+  <div class="playlist-profile">
+    {% for data in playlist %}
+      {% if data.public %}
+      <a href="{% url 'showplaylist' data.id %}">
+        {% if data.photo %}
+          <br><img class="data-pic" src="{{ data.photo.url }}" alt="">
+          <br><p class="titulo">{{data.title|truncatechars:15}}</p>
+          <br><p class="lista">list • {{user.profile.nickname}}</p>
+        {% else %}
+          <p>no pics</p>
+          <br><p class="titulo">{{data.title|truncatechars:15}}</p>
+          <br><p class="lista">list • {{user.profile.nickname}}</p>
+        {% endif %}
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+  
+{% endblock %}
+</body>
+</html>

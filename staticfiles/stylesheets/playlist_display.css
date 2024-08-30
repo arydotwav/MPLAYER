@@ -1,13 +1,25 @@
 .playlists{
     display: flex;
-    flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
-    gap: 16px; /* Espacio entre los elementos */
+    flex-wrap: wrap; 
     border: 1px solid black;
+    min-height: 100vh;
     background: linear-gradient(to bottom, rgb(20 19 39) 0%, rgba(133, 15, 179, 0.493) 100%);
 }
 #reset{
     display: none;
 }
+
+.list a{
+    color: #9d45eb;
+}
+
+.list a:hover{
+    color: #353ebe;
+    text-decoration: none;
+}
+
+
+
 .album{
     flex-direction: row;
     justify-content: center;
@@ -89,14 +101,16 @@ a{
     font-weight: 500;
     
 }
-h2{
-    font-size: 50px;
+h1{
+    font-size: 5em;
     color: white;
     margin-left: 100px;
     font-family: poppins;
+    margin-top: 50px;
+    margin-bottom: 10px;
 }
 .add{
-    display: flex;
+    margin-top: 8em;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -110,8 +124,6 @@ h2{
     height: 30px;
 }
 
-
-
 .add:hover{
     cursor: pointer;
     filter: brightness(0.8);
@@ -120,40 +132,36 @@ h2{
 @media screen and (max-width: 1024px) {
     .add{
         margin: 0;
+        display: flex;
     }
     
     .playlists {
         display: flex;
         gap: 10px;
-        flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+        flex-wrap: wrap; 
+    }
+
+    #cover{
+        width: 200px;
+        height: 200px;
     }
 
     .playlists > div {
-        flex: 0 0 calc(25% - 12px); /* Cada div ocupará el 25% del ancho menos el espacio del gap */
-        margin-bottom: 16px; /* Margen inferior para espacio vertical entre filas */
+        flex: 0 0 calc(25% - 12px); 
+        margin-bottom: 16px; 
     }
+    
 }
 
+
+
 @media screen and (max-width: 900px) {
-    h2{
+    h1{
         text-align: left;
         margin-left: 35px;
         margin-bottom: 10px;
     }
-    .playlist img{
-        width: 220px;
-        height: 220px;
-    }
-    .album img{
-        width: 220px;
-        height: 220px;
-    }
-    .p-name{
-        font-size: 30px;
-    }
-    .list{
-        font-size: 25px;
-    }
+
     .add{
         margin-left: 0;
     }
@@ -164,12 +172,12 @@ h2{
     .playlist {
         display: flex;
         gap: 10px;
-        flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+        flex-wrap: wrap; 
     }
 
     .playlists > div {
-        flex: 0 0 calc(50% - 6px); /* Cada div ocupará el 50% del ancho menos el espacio del gap */
-        margin-bottom: 16px; /* Margen inferior para espacio vertical entre filas */
+        flex: 0 0 calc(50% - 6px); 
+        margin-bottom: 16px; 
         gap: 0;
         padding: 0;
     }

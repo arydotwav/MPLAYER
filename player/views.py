@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.contrib import messages
 
 def index(request):
+    artist = Artist.objects.all()
     rec_albums = Album.objects.order_by('?')[:2]
         
     #checkeo si esta loggeado el usuario   
@@ -23,11 +24,12 @@ def index(request):
         rec_playlist = None
     rec_artist = Artist.objects.order_by('?').first()
     profile = Profile.objects.all()
-    return render(request, 'layout/home.htm', {
+    return render(request, 'layout/home.html', {
         'profile': profile,
         'rec_artist': rec_artist,
         'rec_albums': rec_albums,
-        'rec_playlist': rec_playlist
+        'rec_playlist': rec_playlist,
+        'artist': artist
     })
 
 def signup(request):
@@ -41,7 +43,7 @@ def signup(request):
             messages.error(request, 'invalid data')
     else:
         form = UserCreationForm()
-    return render(request, 'users/signup.htm', {
+    return render(request, 'users/signup.html', {
         'form': form,
     })
 
@@ -56,7 +58,7 @@ def signin(request):
             messages.error(request, 'invalid username or password')
     else:
         form = AuthenticationForm()
-    return render(request, 'users/signin.htm', {
+    return render(request, 'users/signin.html', {
         'form': form
     })
 
@@ -76,7 +78,7 @@ def profile(request, user_id):
         profile.pfp = 'default_pfp.jpg'
         profile.save()
     else:
-        return render(request, 'users/profile.htm', {
+        return render(request, 'users/profile.html', {
             'playlist': playlist,
             'profile': profile,
             'is_owner': is_owner
@@ -95,7 +97,7 @@ def update_profile(request, profile_id):
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, 'users/update_profile.htm', {
+    return render(request, 'users/update_profile.html', {
         'profile': profile,
         'form': form
     })
@@ -111,7 +113,7 @@ def search(request):
         albums = albums.filter(title__icontains=query)
         artists = artists.filter(name__icontains=query)
         
-    return render(request, 'search/results.htm', {
+    return render(request, 'search/results.html', {
         'songs': songs,
         'artists': artists,
         'albums': albums
@@ -122,7 +124,7 @@ def playlists(request):
     
     albums = Album.objects.all()
     user_playlists = Playlist.objects.filter(user=request.user)
-    return render(request, 'songs/playlists_display.htm', {
+    return render(request, 'songs/playlists_display.html', {
         'playlist': user_playlists,
         'albums': albums
     })
@@ -131,7 +133,7 @@ def showplaylist(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
     songs =  playlist.songs.all()
     artist = songs.first().artist if songs.exists() and songs.first().artist else None
-    return render(request, 'songs/show_playlist.htm', {
+    return render(request, 'songs/show_playlist.html', {
         'playlist': playlist,
         'songs': songs,
         'artist': artist
@@ -149,7 +151,7 @@ def update_playlist(request, playlist_id):
     else:
         form = PlaylistForm(instance=playlist)
 
-    return render(request, 'songs/update_playlist.htm', {'form': form, 'playlist': playlist})
+    return render(request, 'songs/update_playlist.html', {'form': form, 'playlist': playlist})
 
 @login_required
 def deleteplaylist(request, playlist_id):
@@ -163,13 +165,13 @@ def deleteplaylist(request, playlist_id):
 
 def album(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
-    return render(request, 'artist/album.htm', {
+    return render(request, 'artist/album.html', {
         'album': album
     })
 
 def songlist(request):
     songs = Song.objects.all()
-    return render(request, 'songs/songlist.htm',{
+    return render(request, 'songs/songlist.html',{
         'songs': songs
     })
 
@@ -185,7 +187,7 @@ def uploadsong(request):
     else:
         form = SongForm()
 
-    return render(request, 'songs/upload_song.htm', {
+    return render(request, 'songs/upload_song.html', {
         'form': form
     })
             
@@ -212,30 +214,43 @@ def createplaylist(request):
             return redirect('library')
     else:
         form = PlaylistForm()
-    return render(request, 'songs/create_playlist.htm', {
+    return render(request, 'songs/create_playlist.html', {
         'form': form
     })
 
 def artist_detail(request, artist_id):    
     artist = get_object_or_404(Artist, id=artist_id)
     songs = artist.songs.all()
-    is_following = artist.liked.filter(id=request.user.id).exists()
+    is_following = artist.followers.filter(id=request.user.id).exists()
+    user = request.user
+    liked_artists_count = Artist.objects.filter(followers=user).count()
     
-    return render(request, 'artist/artist.htm', {
+    return render(request, 'artist/artist.html', {
         'songs': songs,
         'artist': artist,
-        'is_following': is_following
+        'is_following': is_following,
+        'liked_artists_count': liked_artists_count
         })
+def followingView(request, profile_id):
+    profile = get_object_or_404(Profile, pk=profile_id)
     
+    return render(request, 'users/see_following.html', {
+        'profile': profile
+    })  
+ 
 def follow_artist(request, artist_id):
     artist = get_object_or_404(Artist, pk=artist_id)
-    artist.liked.add(request.user)
+    user = request.user
+    artist.followers.add(user)
+    user.profile.followed_artists.add(artist)
     
     return redirect('artist', artist_id=artist.id)
 
 def unfollow_artist(request, artist_id):
     artist = get_object_or_404(Artist, pk=artist_id)
-    artist.liked.remove(request.user)
+    user = request.user
+    artist.followers.remove(user)
+    user.profile.followed_artists.remove(artist)
     
     return redirect('artist', artist_id=artist.id)
 
@@ -254,14 +269,14 @@ def like_song(request, song_id):
 @login_required
 def library(request):
     liked_songs = request.user.liked_songs.all()  # Get all songs liked by the current user
-    return render(request, 'songs/library.htm', {'liked_songs': liked_songs})
+    return render(request, 'songs/library.html', {'liked_songs': liked_songs})
 
 @login_required
 def userplaylist(request, playlist_id, artist_id):
     artist = get_object_or_404(Artist, id=artist_id)
     playlist = get_object_or_404(Playlist, pk=playlist_id)
     songs = playlist.songs.all()
-    return render(request, 'songs/playlists_display.htm', {
+    return render(request, 'songs/playlists_display.html', {
         'playlist': playlist,
         'songs': songs,
         'artist': artist
