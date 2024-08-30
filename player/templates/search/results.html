@@ -18,10 +18,12 @@
             {% endif %}
         {% endfor %}
         {% for artist in artists %}
+        <a href="{% url 'artist' artist.id %}">
             <p>{{artist.name}}</p>
             {% if artist.pic %}
                 <img src="{{artist.pic.url}}" alt="">
             {% endif %}
+        </a>
         {% endfor %}
         {% for album in albums %}
         <a href="{% url 'album' album.id %}">

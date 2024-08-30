@@ -221,16 +221,25 @@ def createplaylist(request):
 def artist_detail(request, artist_id):    
     artist = get_object_or_404(Artist, id=artist_id)
     songs = artist.songs.all()
-    is_following = artist.followers.filter(id=request.user.id).exists()
-    user = request.user
-    liked_artists_count = Artist.objects.filter(followers=user).count()
     
-    return render(request, 'artist/artist.html', {
-        'songs': songs,
-        'artist': artist,
-        'is_following': is_following,
-        'liked_artists_count': liked_artists_count
+    if request.user.is_authenticated:
+        user = request.user
+        is_following = artist.followers.filter(id=request.user.id).exists()
+        liked_artists_count = Artist.objects.filter(followers=user).count()
+        
+        return render(request, 'artist/artist.html', {
+            'songs': songs,
+            'artist': artist,
+            'is_following': is_following,
+            'liked_artists_count': liked_artists_count
         })
+         
+    else:
+        return render(request, 'artist/artist.html', {
+            'songs': songs,
+            'artist': artist,
+        })
+    
 def followingView(request, profile_id):
     profile = get_object_or_404(Profile, pk=profile_id)
     
