@@ -12,6 +12,28 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
+class Album(models.Model):
+    title = models.CharField(max_length=100)
+    dateofrelease = models.CharField(max_length=30)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=True)
+    cover = models.ImageField(upload_to='album_photo/', blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.title}"
+    
+
+class Song(models.Model):
+    title = models.CharField(max_length=100)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE ,blank=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='songs')
+    audio_file = models.FileField(upload_to='audio/', blank=True, null=True)
+    songcover = models.ImageField(upload_to='song_photo/', blank=True, null=True)
+    
+    def __str__(self):
+        return self.title
+    def total_likes(self):
+        return self.liked_by.count()
+
 class Profile(models.Model):
     nickname = models.CharField(max_length=50, blank=True, null=True)
     pfp = models.ImageField(upload_to='profile_pics/', default='default_pfp.jpg')
@@ -21,32 +43,11 @@ class Profile(models.Model):
     #el symmetrical=False dice que la relacion no necesariamente es simetrica, que si el user 1 sigue el 2, 
     #no significa que el 2 siga el 1
     followed_artists = models.ManyToManyField(Artist, related_name='followed_artists', blank=True)
+    liked_albums = models.ManyToManyField(Album, related_name='liked_albums', blank=True)
+    liked_songs = models.ManyToManyField(Song, related_name='liked_songs', blank=True)
     
     def __str__(self):
         return f"{self.user}"  
-    
-class Album(models.Model):
-    title = models.CharField(max_length=100)
-    dateofrelease = models.CharField(max_length=30)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=True)
-    cover = models.ImageField(upload_to='album_photo/', blank=True, null=True)
-    like = models.ManyToManyField(User, related_name='liked_albums', blank=True)
-    
-    def __str__(self):
-        return f"{self.title}"
-
-class Song(models.Model):
-    title = models.CharField(max_length=100)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE ,blank=True)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='songs')
-    audio_file = models.FileField(upload_to='audio/', blank=True, null=True)
-    liked_by = models.ManyToManyField(User, related_name='liked_songs', blank=True)
-    songcover = models.ImageField(upload_to='song_photo/', blank=True, null=True)
-    
-    def __str__(self):
-        return self.title
-    def total_likes(self):
-        return self.liked_by.count()
 
 class Playlist(models.Model):
     title = models.CharField(max_length=100,blank=True)

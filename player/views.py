@@ -9,6 +9,7 @@ from .models import Playlist, Song, Album, Artist, Profile
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
+from django.db.models import Q
 
 def index(request):
     artist = Artist.objects.all()
@@ -109,9 +110,9 @@ def search(request):
     artists = Artist.objects.all()
     
     if query:
-        songs = songs.filter(title__icontains=query)
-        albums = albums.filter(title__icontains=query)
-        artists = artists.filter(name__icontains=query)
+        songs = songs.filter(Q(title__icontains=query)|Q(artist__name__icontains=query))
+        albums = albums.filter(Q(title__icontains=query)|Q(artist__name__icontains=query))
+        artists = artists.filter(Q(name__icontains=query))
         
     return render(request, 'search/results.html', {
         'songs': songs,
@@ -136,7 +137,7 @@ def showplaylist(request, playlist_id):
     return render(request, 'songs/show_playlist.html', {
         'playlist': playlist,
         'songs': songs,
-        'artist': artist
+        'artist': artist,
     })
 
 @login_required
@@ -165,15 +166,35 @@ def deleteplaylist(request, playlist_id):
 
 def album(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
-    return render(request, 'artist/album.html', {
-        'album': album
-    })
+    user = request.user
+    
+    if user.is_authenticated:
+        liked_albums = request.user.profile.liked_albums.all()
+        return render(request, 'artist/album.html', {
+            'album': album,
+            'liked_albums': liked_albums
+        })
+    else:
+        return render(request, 'artist/album.html', {
+            'album': album,
+        })
 
-def songlist(request):
-    songs = Song.objects.all()
-    return render(request, 'songs/songlist.html',{
-        'songs': songs
-    })
+
+
+def songView(request, song_id):
+    songs = get_object_or_404(Song, pk=song_id)
+    user = request.user
+    
+    if user.is_authenticated:
+        liked_songs = request.user.profile.liked_songs.all()
+        return render(request, 'songs/song.html', {
+            'songs': songs,
+            'liked_songs': liked_songs
+        })
+    else:
+        return render(request, 'songs/song.html', {
+            'songs': songs
+        })
 
 def uploadsong(request):
     if not request.user.is_superuser:
@@ -264,20 +285,25 @@ def unfollow_artist(request, artist_id):
     return redirect('artist', artist_id=artist.id)
 
 
-@login_required
-def like_song(request, song_id):
+
+def likeSong(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
-    if request.user in song.liked_by.all():
-    #esto hace que si el usuario ya tiene likeada la cancion, se lo pueda sacar si quiere
-        song.liked_by.remove(request.user)
-    else:
-        # aca, si no la likeo, le pude dar like
-        song.liked_by.add(request.user)
-    return redirect('song_detail', song_id=song.id)
+    profile = request.user.profile
+    profile.liked_songs.add(song)
+
+    return redirect('song', song_id=song.id)
+
+def unlikeSong(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
+    profile = request.user.profile
+    if song in profile.liked_songs.all():
+        profile.liked_songs.remove(song)
+    return redirect('song', song_id=song.id)
 
 @login_required
 def library(request):
-    liked_songs = request.user.liked_songs.all()  # Get all songs liked by the current user
+    profile = request.user.profile
+    liked_songs = profile.liked_songs.all()  # Get all songs liked by the current user
     return render(request, 'songs/library.html', {'liked_songs': liked_songs})
 
 @login_required
@@ -291,6 +317,18 @@ def userplaylist(request, playlist_id, artist_id):
         'artist': artist
     })
 
+
+def likeAlbum(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    profile = request.user.profile
+    profile.liked_albums.add(album)
+    return redirect('album', album_id=album.id)
     
+def unlikeAlbum(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    profile = request.user.profile
     
+    if album in profile.liked_albums.all():
+        profile.liked_albums.remove(album)
     
+    return redirect('album', album_id=album.id)

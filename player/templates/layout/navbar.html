@@ -26,12 +26,12 @@
                     <a href="{% url 'profile' user.id %}"><p>{{profile.nickname}}</p></a>
                 {% endif %}
             {% else %}
+                <li><a href="{% url 'signup' %}">sign up</a></li>
+            {% endif %}
             <li><form action="{% url 'results' %}" method="POST">
                 {% csrf_token %} 
                 <input type="text" name="q" placeholder="search">
             </form></li>
-                <li><a href="{% url 'signup' %}">sign up</a></li>
-            {% endif %}
         </ul>
     </nav>
 </body>

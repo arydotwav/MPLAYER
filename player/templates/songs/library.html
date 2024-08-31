@@ -21,7 +21,7 @@
             {% if liked_songs %}
                 {% for song in liked_songs %}
             <div class="cards">
-                <div class="song-details" onclick="togglePlayPause(this)"> <!-- Nuevo contenedor -->
+                <div class="song-details" onclick="togglePlayPause(this)"> 
                     <div class="cover">
                         {% if song.songcover %}
                         <img id="portada" loading="lazy" src="{{ song.songcover.url }}" alt="">
@@ -45,7 +45,7 @@
                         </div>
                         {% endif %}
                     </div>
-                </div> <!-- Fin del nuevo contenedor -->
+                </div>
                 {% endfor %}
                 {% endif %}
             </div>

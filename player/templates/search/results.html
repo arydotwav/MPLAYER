@@ -9,13 +9,15 @@
 </head>
 <body>
     {% include 'layout/navbar.html' %}
-    {% if songs or artists or albums %}
+    {% if songs or artists or albums  %}
     <div class="results">
         {% for song in songs%}
+        <a href="{% url 'song' song.id %}">
             <p>{{song.title}}</p>
             {% if song.songcover %}
                 <img src="{{ song.songcover.url }}" alt="">
             {% endif %}
+        </a>
         {% endfor %}
         {% for artist in artists %}
         <a href="{% url 'artist' artist.id %}">
