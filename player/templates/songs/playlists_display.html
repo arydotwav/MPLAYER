@@ -29,8 +29,7 @@
         </a>
     </div>
     {% endfor %}
-    {% for album in albums %}
-    {% if request.user in album.like.all %}
+    {% for album in user.profile.liked_albums.all %}
     <div class="album">
         <a href="{% url 'album' album.id%}">
             {% if album.cover %}
@@ -40,7 +39,7 @@
         </a>
         <p class="list">album • <a href="{% url 'artist' album.artist.id %}">{{album.artist}}</a></p>
     </div>
-    {% endif %}
+
     {% endfor %}
     </div>
 </body>
