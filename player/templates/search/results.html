@@ -11,34 +11,52 @@
     {% include 'layout/navbar.html' %}
     {% if songs or artists or albums  %}
     <div class="results">
+        <h1>Main result</h1>
+        <div class="first-result">
+                {% for artist in artists %}
+                    <a href="{% url 'artist' artist.id %}">
+                        <div class="artist">
+                            {% if artist.pic %}
+                                <img id="artist-img" src="{{artist.pic.url}}" alt="">
+                            {% endif %}
+                            <p class="name">{{artist.name}}</p>
+                            <p class="tag-a">Artist</p>
+                        </div>
+                    </a>
+                {% endfor %}
+        </div>
+        <div class="songs">
+            <p class="s-title">Songs</p>
         {% for song in songs%}
-        <a href="{% url 'song' song.id %}">
-            <p>{{song.title}}</p>
-            {% if song.songcover %}
-                <img src="{{ song.songcover.url }}" alt="">
-            {% endif %}
-        </a>
+        <div class="div-song">
+            <a href="{% url 'song' song.id %}" class="song-link">
+              {% if song.songcover %}
+                <img src="{{ song.songcover.url }}" alt="{{ song.title }}" class="song-cover">
+              {% endif %}
+              <div class="song-info">
+                <p class="song-title">{{song.title}}</p>
+                <p class="song-artist">{{song.artist}}</p>
+              </div>
+            </a>
+        </div>         
         {% endfor %}
-        {% for artist in artists %}
-        <a href="{% url 'artist' artist.id %}">
-            <p>{{artist.name}}</p>
-            {% if artist.pic %}
-                <img src="{{artist.pic.url}}" alt="">
-            {% endif %}
-        </a>
-        {% endfor %}
-        {% for album in albums %}
-        <a href="{% url 'album' album.id %}">
-            <p>{{album.title}}</p>
-            <p>{{album.artist}}</p>
-            {% if album.cover %}
-                <img src="{{album.cover.url}}" alt="">
-            {% endif %}
-        </a>
-        {% endfor %}
+        </div>
+        <div class="albums">
+            <p class="s-title">Albums</p>
+            {% for album in albums %}
+            <a href="{% url 'album' album.id %}" class="album-item">
+              {% if album.cover %}
+                <img src="{{ album.cover.url }}" alt="" class="album-cover">
+              {% endif %}
+              <div class="album-info">
+                <p class="album-title">{{ album.title }}</p>
+                <p class="album-artist">{{ album.artist }}</p>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          
     </div>
     {% endif %}
-
-   
 </body>
 </html>

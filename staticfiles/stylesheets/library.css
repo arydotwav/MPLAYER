@@ -11,11 +11,18 @@
     transition: all 0.3s ease;
     font-family: poppins;
 }
+
+
 .separation p{
     font-size: 18px;
     font-weight: 700;
     color: white;
 }
+
+.s-title{
+    color: white;
+}
+
 .song-details:hover{
     .play-button{
         display: block;
