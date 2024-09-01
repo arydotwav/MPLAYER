@@ -28,7 +28,7 @@
                         {% endif %}
                     </div>
                     <div class="rest">
-                        <p>{{ song.title }}</p>
+                        <a href="{% url 'song' song.id%}"><p class="s-title">{{ song.title }}</p></a>
                         {% if song.artist %}
                         <a href="{% url 'artist' song.artist.id %}">{{song.artist}}</a>
                         {% endif %}
@@ -75,7 +75,7 @@
     
         // Reproducir o pausar el audio seleccionado
         if (audioPlayer.paused) {
-            audioPlayer.volume = 0.2;
+            audioPlayer.volume = 0.1;
             audioPlayer.play();
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'block';
