@@ -3,6 +3,27 @@ body{
     background: rgb(61, 34, 95);
 }
 
+.form{
+    width: 35%;
+}
+
+#contain{
+    font-size: 13.5px;
+    text-align: center;
+    color: rgb(172, 172, 172);
+    margin: 0 10px 10px 10px;
+}
+
+.form p{
+    font-family: poppins;
+    margin: 0;
+    padding: 0;
+}
+
+.form-username, #id_password1,#id_password2{
+    width: 200px;
+}
+
 form{
     display: flex;
     font-family: poppins;
@@ -20,10 +41,28 @@ form{
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 h1{
-    color: white;
+    color: rgb(255, 255, 255);
     font-family: poppins;
     text-align: center;
     font-weight: 600;
+}
+
+.btn-confirm{
+    width: 200px;
+    height: 40px;
+    font-family: poppins;
+    text-transform: uppercase;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: rgb(83, 54, 138);
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.btn-confirm:hover{
+    background-color: rgb(126, 98, 179);
 }
 
 input{

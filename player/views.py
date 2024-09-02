@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import SongForm, AlbumForm, PlaylistForm, ProfileForm
+from .forms import SongForm, AlbumForm, PlaylistForm, ProfileForm, CustomUserCreationForm
 from .models import Playlist, Song, Album, Artist, Profile
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -35,7 +35,7 @@ def index(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -43,7 +43,7 @@ def signup(request):
         else:
             messages.error(request, 'invalid data')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'users/signup.html', {
         'form': form,
     })
