@@ -1,5 +1,7 @@
 from django import forms
 from .models import Song, Album, Playlist, Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class SongForm(forms.ModelForm):
     class Meta:
@@ -27,3 +29,18 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['nickname', 'pfp']
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2')  
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-username', 'placeholder': 'Username'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-password1', 'placeholder': 'Password'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-password2', 'placeholder': 'Confirm Password'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'usable_password' in self.fields:
+            del self.fields['usable_password']

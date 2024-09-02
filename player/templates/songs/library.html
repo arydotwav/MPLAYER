@@ -25,6 +25,8 @@
                     <div class="cover">
                         {% if song.songcover %}
                         <img id="portada" loading="lazy" src="{{ song.songcover.url }}" alt="">
+                        {% else %}
+                        <img src="{{ song.album.cover.url }}" alt="" id="portada">
                         {% endif %}
                     </div>
                     <div class="rest">
@@ -39,7 +41,6 @@
                             <audio id="audioPlayer" src="{{ song.audio_file.url }}" type="audio/mpeg"></audio>
                             <button id="playPauseBtn" class="play-btn">
                                 <img id="playIcon" src="{% static 'img/play.png' %}" alt="Play" style="display: block;">
-                                <p style="display: none;">hola</p>
                                 <img id="pauseIcon" src="{% static 'img/pause.png' %}" alt="Pause" style="display: none;">
                             </button>
                         </div>
