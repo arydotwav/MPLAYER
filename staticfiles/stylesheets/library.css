@@ -123,8 +123,8 @@ audio{
 }
 
 .song-details.playing {
-    background-color: rgb(123 75 161 / 70%); /* Cambia el color a un tono diferente */
-    transition: background-color 0.3s ease; /* Añade una transición suave */
+    background-color: rgb(123 75 161 / 70%); 
+    transition: background-color 0.3s ease; 
     border-radius: 5px;
 }
 
@@ -167,7 +167,7 @@ audio{
         margin-right: 35px;
     }
     .play-button {
-        visibility: hidden; /* Oculta el botón en dispositivos móviles */
+        visibility: hidden; 
     }
 }
 
