@@ -17,31 +17,136 @@
             {% endif %}
             <p class="ver">Verified Artist</p>
             <p class="name">{{artist.name}}</p>
-            <p>{{artist.bio}}</p>
+            <p class="bio">{{artist.bio}}</p>
                 <p class="followers">{{artist.followers.count}} followers</p>
+                <div class="bottom">
+                    {% if user.is_authenticated %}
+                    {% if is_following %}
+                        <form action="{% url 'unfollow' artist.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn-follow" type="submit">Following</button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'follow' artist.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn-follow" type="submit">Follow</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <p>Please, <a href="{% url 'signup' %}">sign up</a>to follow this artist</p>
+                {% endif %}
+                </div>
         </div>
-        <div class="bottom">
-            {% if user.is_authenticated %}
-            {% if is_following %}
-                <form action="{% url 'unfollow' artist.id %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Dejar de Seguir</button>
-                </form>
-            {% else %}
-                <form action="{% url 'follow' artist.id %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Seguir</button>
-                </form>
-            {% endif %}
-        {% else %}
-            <p>Por favor, <a href="{% url 'signup' %}">inicia sesión</a> para seguir a este artista.</p>
-        {% endif %}
-        {% for song in songs %}
-            {{song.title}}
-            {{song.album}}
-        {% endfor %}  
+    <div class="most-liked">
+        <p class="popular">Popular</p>
+            {% for song in songs|slice:":5" %}
+            <div class="cards">
+                <div class="count-container">
+                    <p class="count">{{ forloop.counter }}</p>
+                </div>
+                <div class="song-details" onclick="togglePlayPause(this)"> 
+                    <div class="cover">
+                        {% if song.album.cover %}
+                        <img id="portada" loading="lazy" src="{{ song.album.cover.url }}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="rest">
+                        <p class="s-title">{{ song.title }}</p>
+                    </div>
+                    <p class="s-likes">{{song.total_likes}} saves</p>
+                    <div class="play-button">
+                        {% if song.audio_file %}
+                        <div class="audio-div">
+                            <audio id="audioPlayer" src="{{ song.audio_file.url }}" type="audio/mpeg"></audio>
+                            <button id="playPauseBtn" class="play-btn">
+                                <img id="playIcon" src="{% static 'img/play.png' %}" alt="Play" style="display: block;">
+                                <p style="display: none;">hola</p>
+                                <img id="pauseIcon" src="{% static 'img/pause.png' %}" alt="Pause" style="display: none;">
+                            </button>
+                        </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+        <p class="alb-title">Albums</p>
+        <div class="albums">  
+            {% for a in album %}
+            <a href="{% url 'album' a.id %}">
+                <div class="alb-div">
+                {% if a.cover %}
+                    <img src="{{a.cover.url}}" alt="">
+                {% endif %}
+                <p class="al-title">{{a.title}}</p>
+                <p class="al-artist">Album · {{a.dateofrelease}}</p>
+                </div>
+            </a>
+            {% endfor %}
         </div>
     </div>
     {% endblock %}
 </body>
 </html>
+<script>
+    var audioPlayers = document.querySelectorAll('audio[id^="audioPlayer"]');
+    var currentAudio = null;
+    var currentlyPlayingDiv = null; // Variable para rastrear el div actualmente en reproducción
+    
+    // Mueve la función togglePlayPause fuera del DOMContentLoaded para hacerla accesible globalmente
+    window.togglePlayPause = function(songDetailElement) {
+        var audioPlayer = songDetailElement.querySelector('audio');
+        var playIcon = songDetailElement.querySelector('#playIcon');
+        var pauseIcon = songDetailElement.querySelector('#pauseIcon');
+        var songDetailsDiv = songDetailElement.closest('.song-details');
+    
+        // Si se está reproduciendo otro audio, pausar el audio actual y restablecer el botón
+        if (currentAudio && currentAudio !== audioPlayer) {
+            currentAudio.pause();
+            resetPlayPauseButton(currentlyPlayingDiv);
+            currentlyPlayingDiv.classList.remove('playing');
+        }
+    
+        // Reproducir o pausar el audio seleccionado
+        if (audioPlayer.paused) {
+            audioPlayer.volume = 0.1;
+            audioPlayer.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            currentAudio = audioPlayer;
+            currentlyPlayingDiv = songDetailsDiv;
+    
+            // Añade la clase .playing al contenedor del div
+            songDetailsDiv.classList.add('playing');
+        } else {
+            audioPlayer.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            currentAudio = null;
+            currentlyPlayingDiv = null;
+    
+            // Remueve la clase .playing del contenedor del div
+            songDetailsDiv.classList.remove('playing');
+        }
+    };
+    
+    // Evento para manejar el final de la canción
+    audioPlayers.forEach(function(audioPlayer) {
+        audioPlayer.addEventListener('ended', function() {
+            resetPlayPauseButton(currentlyPlayingDiv);
+            currentlyPlayingDiv.classList.remove('playing');
+            currentAudio = null;
+            currentlyPlayingDiv = null;
+        });
+    });
+    
+    // Función para restablecer el botón de reproducción/pausa
+    function resetPlayPauseButton(songDetailElement) {
+        if (!songDetailElement) return; // Asegúrate de que el elemento exista
+        var playIcon = songDetailElement.querySelector('#playIcon');
+        var pauseIcon = songDetailElement.querySelector('#pauseIcon');
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+    }
+    
+</script>

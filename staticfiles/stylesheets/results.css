@@ -118,7 +118,11 @@ a {
     margin: 0;
 }
 
-.song-artist {
+.song-title, .album-title{
+    font-weight: 500;
+}
+
+.song-artist, .album-artist {
     color: grey;
 }
 

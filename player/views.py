@@ -9,7 +9,7 @@ from .models import Playlist, Song, Album, Artist, Profile
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, Count
 
 def index(request):
     artist = Artist.objects.all()
@@ -241,24 +241,26 @@ def createplaylist(request):
 
 def artist_detail(request, artist_id):    
     artist = get_object_or_404(Artist, id=artist_id)
-    songs = artist.songs.all()
+    album = Album.objects.filter(artist=artist)
+    songs = Song.objects.filter(artist=artist).annotate(total_likes=Count('liked_songs')).order_by('-total_likes')
     
     if request.user.is_authenticated:
         user = request.user
         is_following = artist.followers.filter(id=request.user.id).exists()
         liked_artists_count = Artist.objects.filter(followers=user).count()
-        
         return render(request, 'artist/artist.html', {
             'songs': songs,
             'artist': artist,
             'is_following': is_following,
-            'liked_artists_count': liked_artists_count
+            'liked_artists_count': liked_artists_count,
+            'album': album
         })
          
     else:
         return render(request, 'artist/artist.html', {
             'songs': songs,
             'artist': artist,
+            'album': album
         })
     
 def followingView(request, profile_id):

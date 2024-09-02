@@ -28,7 +28,7 @@ class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='songs')
     audio_file = models.FileField(upload_to='audio/', blank=True, null=True)
     songcover = models.ImageField(upload_to='song_photo/', blank=True, null=True)
-    
+            
     def __str__(self):
         return self.title
     def total_likes(self):
