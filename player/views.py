@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from django.db.models import Q, Count
+from thefuzz import process
 
 def index(request):
     artist = Artist.objects.all()
@@ -110,9 +111,23 @@ def search(request):
     artists = Artist.objects.all()
     
     if query:
-        songs = songs.filter(Q(title__icontains=query)|Q(artist__name__icontains=query))
-        albums = albums.filter(Q(title__icontains=query)|Q(artist__name__icontains=query))
-        artists = artists.filter(Q(name__icontains=query))
+        song_titles = [song.title for song in songs]
+        artist_names = [artist.name for artist in artists]
+        album_titles = [album.title for album in albums]
+        
+        song_matches = process.extract(query, song_titles, limit=len(song_titles))
+        matched_song_titles = [match[0] for match in song_matches if match[1] > 70]
+        
+        artist_matches = process.extract(query, artist_names, limit=len(artist_names))
+        matched_artist_names = [match[0] for match in artist_matches if match[1] > 70]
+        
+        album_matches = process.extract(query,album_titles, limit=len(album_titles))
+        matched_album_titles = [match[0] for match in album_matches if match[1] > 70]
+        
+        songs = songs.filter(Q(title__in=matched_song_titles)|Q(artist__name__in=matched_artist_names))
+        artists = artists.filter(Q(name__in=matched_artist_names))
+        albums = albums.filter(Q(title__in=matched_album_titles)|Q(artist__name__in=matched_artist_names))
+        
         
     return render(request, 'search/results.html', {
         'songs': songs,
