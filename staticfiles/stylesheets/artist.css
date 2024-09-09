@@ -63,7 +63,7 @@ audio{
     background-image: inherit;
     background-size: inherit; 
     background-repeat: inherit; 
-    filter: brightness(0.5); 
+    filter: brightness(0.3); 
     z-index: 0; 
 }
 
@@ -311,4 +311,34 @@ a{
     color: white;
     font-weight: 500;
     font-size: 24px;
+}
+
+@media screen and (max-width: 820px) {
+    #portada {
+        width: 45px;
+        height: 45px;
+    }
+    .s-title{
+        font-size: 16px;
+    }
+
+    .s-likes{
+        display: none;
+    }
+
+    .name{
+        font-size: 3.5em;
+    }
+
+    .most-liked, .albums, .alb-title, .name{
+        margin-left: 30px;
+    }
+
+    .album{
+        overflow: scroll;
+    }
+
+    .cards{
+        width: 100%;
+    }
 }

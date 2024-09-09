@@ -34,6 +34,8 @@
                 <div class="cover">
                     {% if song.songcover %}
                         <img id="portada" loading="lazy" src="{{ song.songcover.url }}" alt="">
+                    {% else %}
+                        <img id="portada" loading="lazy" src="{{ song.album.cover.url }}" alt="">
                     {% endif %}
                 </div>
                 <div class="rest">

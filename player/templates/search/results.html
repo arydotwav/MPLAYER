@@ -11,6 +11,7 @@
     {% include 'layout/navbar.html' %}
     {% if songs or artists or albums  %}
     <div class="results">
+        {% if artists %}
         <h1>Main result</h1>
         <div class="first-result">
                 {% for artist in artists %}
@@ -25,6 +26,37 @@
                     </a>
                 {% endfor %}
         </div>
+        {% elif albums %}
+        <h1>Main result</h1>
+        <div class="first-result">
+          {% for album in albums %}
+              <a href="{% url 'artist' album.artist.id %}">
+                <div class="artist">
+                  {% if album.artist.pic %}
+                      <img id="artist-img" src="{{album.artist.pic.url}}" alt="">
+                  {% endif %}
+                    <p class="name">{{album.artist.name}}</p>
+                    <p class="tag-a">Artist</p>
+                </div>
+              </a>
+          {% endfor %}
+        </div>
+        {% else %}
+        <h1>Main result</h1>
+        <div class="first-result">
+          {% for song in songs %}
+              <a href="{% url 'artist' song.artist.id %}">
+                <div class="artist">
+                  {% if song.artist.pic %}
+                      <img id="artist-img" src="{{song.artist.pic.url}}" alt="">
+                  {% endif %}
+                    <p class="name">{{song.artist.name}}</p>
+                    <p class="tag-a">Artist</p>
+                </div>
+              </a>
+          {% endfor %}
+        </div>
+        {% endif %}
         <div class="songs">
             <p class="s-title">Songs</p>
         {% for song in songs%}
@@ -45,6 +77,7 @@
         </div>
         <div class="albums">
             <p class="s-title">Albums</p>
+            {% if albums %}
             {% for album in albums %}
             <a href="{% url 'album' album.id %}" class="album-item">
               {% if album.cover %}
@@ -56,6 +89,19 @@
               </div>
             </a>
             {% endfor %}
+            {% else %}
+              {% for song in songs %}
+              <a href="{% url 'album' song.album.id %}" class="album-item">
+                {% if song.album.cover %}
+                  <img src="{{ song.album.cover.url }}" alt="" class="album-cover">
+                {% endif %}
+                <div class="album-info">
+                  <p class="album-title">{{ song.album.title }}</p>
+                  <p class="album-artist">{{ song.album.artist }}</p>
+                </div>
+              </a>
+              {% endfor %}
+            {% endif %}
           </div>
           
     </div>
