@@ -33,14 +33,27 @@
         <a class="p-playlist" href="{% url 'showplaylist' rec_playlist.id %}">
             <img src="{{ rec_playlist.photo.url }}" alt="">
             <p>{{rec_playlist.title | truncatechars:15}}</p>
+        </a>
         {% endif %}
-        {% for album in rec_albums %}
-    <a href="{% url 'album' album.id %}">
-        {% if album.cover %}
-        <img src="{{ album.cover.url }}" alt="cf">
+        {% if user.is_authenticated %}
+            {% for album in rec_albums %}
+            <a class='a-height' href="{% url 'album' album.id %}">
+                {% if album.cover %}
+                <img src="{{ album.cover.url }}" alt="cf">
+                {% endif %}
+            <p class="a-title">{{album.title | truncatechars:15}}</p>
+            </a>
+            {% endfor %}
+        {% else %}
+            {% for album in rec_albums %}
+            <a class='a-height' href="{% url 'album' album.id %}">
+                {% if album.cover %}
+                <img src="{{ album.cover.url }}" alt="cf">
+                {% endif %}
+            <p class="a-title">{{album.title | truncatechars:15}}</p>
+            </a>
+            {% endfor %}
         {% endif %}
-        <p class="a-title">{{album.title | truncatechars:15}}</p>
-    {% endfor %}
         </div>
     </div>
     {% block content %}
