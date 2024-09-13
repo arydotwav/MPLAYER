@@ -14,16 +14,18 @@ from thefuzz import process
 
 def index(request):
     artist = Artist.objects.all()
-    rec_albums = Album.objects.order_by('?')[:2]
+    rec_albums = Album.objects.order_by('?')[:3]
         
     #checkeo si esta loggeado el usuario   
     if request.user.is_authenticated:
         #si lo esta va a agarrar el objeto aleatorio de la tabla playlist
         rec_playlist = Playlist.objects.filter(user=request.user).order_by('?').first()
+        rec_albums = rec_albums[:2]
     else:
         #se pone el none para que no tire error, ya q en el inicio yo puse para que se muestren recomendaciones
         #del user q esta logeado
         rec_playlist = None
+        rec_albums = rec_albums[:3]
     rec_artist = Artist.objects.order_by('?').first()
     profile = Profile.objects.all()
     return render(request, 'layout/home.html', {
