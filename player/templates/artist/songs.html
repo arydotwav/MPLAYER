@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for song in songs %}
+        {% if song.audio_file%}
+        <div class="song-details" onclick="togglePlayPause(this)"> 
+            <div class="cover">
+                {% if song.album.cover %}
+                <img id="portada" loading="lazy" src="{{ song.album.cover.url }}" alt="">
+                {% endif %}
+            </div>
+            <div class="rest">
+                <p class="s-title">{{ song.title }}</p>
+                <p>{{song.artist}}</p>
+            </div>
+            <div class="play-button">
+                {% if song.audio_file %}
+                <div class="audio-div">
+                    <audio id="audioPlayer" src="{{ song.audio_file.url }}" type="audio/mpeg"></audio>
+                    <button id="playPauseBtn" class="play-btn">
+                        <img id="playIcon" src="{% static 'img/play.png' %}" alt="Play" style="display: block;">
+                        <p style="display: none;">hola</p>
+                        <img id="pauseIcon" src="{% static 'img/pause.png' %}" alt="Pause" style="display: none;">
+                    </button>
+                </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
+<script>
+    var audioPlayers = document.querySelectorAll('audio[id^="audioPlayer"]');
+    var currentAudio = null;
+    var currentlyPlayingDiv = null; // Variable para rastrear el div actualmente en reproducción
+    
+    // Mueve la función togglePlayPause fuera del DOMContentLoaded para hacerla accesible globalmente
+    window.togglePlayPause = function(songDetailElement) {
+        var audioPlayer = songDetailElement.querySelector('audio');
+        var playIcon = songDetailElement.querySelector('#playIcon');
+        var pauseIcon = songDetailElement.querySelector('#pauseIcon');
+        var songDetailsDiv = songDetailElement.closest('.song-details');
+    
+        // Si se está reproduciendo otro audio, pausar el audio actual y restablecer el botón
+        if (currentAudio && currentAudio !== audioPlayer) {
+            currentAudio.pause();
+            resetPlayPauseButton(currentlyPlayingDiv);
+            currentlyPlayingDiv.classList.remove('playing');
+        }
+    
+        // Reproducir o pausar el audio seleccionado
+        if (audioPlayer.paused) {
+            audioPlayer.volume = 0.1;
+            audioPlayer.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            currentAudio = audioPlayer;
+            currentlyPlayingDiv = songDetailsDiv;
+    
+            // Añade la clase .playing al contenedor del div
+            songDetailsDiv.classList.add('playing');
+        } else {
+            audioPlayer.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            currentAudio = null;
+            currentlyPlayingDiv = null;
+    
+            // Remueve la clase .playing del contenedor del div
+            songDetailsDiv.classList.remove('playing');
+        }
+    };
+    
+    // Evento para manejar el final de la canción
+    audioPlayers.forEach(function(audioPlayer) {
+        audioPlayer.addEventListener('ended', function() {
+            resetPlayPauseButton(currentlyPlayingDiv);
+            currentlyPlayingDiv.classList.remove('playing');
+            currentAudio = null;
+            currentlyPlayingDiv = null;
+        });
+    });
+    
+    // Función para restablecer el botón de reproducción/pausa
+    function resetPlayPauseButton(songDetailElement) {
+        if (!songDetailElement) return; // Asegúrate de que el elemento exista
+        var playIcon = songDetailElement.querySelector('#playIcon');
+        var pauseIcon = songDetailElement.querySelector('#pauseIcon');
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+    }
+    
+</script>

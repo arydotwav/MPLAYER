@@ -138,4 +138,25 @@ a {
 .div-song, .album-item {
     color: white;
 }
-  
+
+button.show-btn{
+    border-radius: 35px;
+    background-color: rgba(75, 48, 172, 0.596);
+    padding: 10px;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.show-btn:hover{
+    font-weight: 600;
+    filter: brightness(0.8);
+    border: 2.5px solid rgb(107, 96, 165);
+}
+.div-button{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
