@@ -295,6 +295,10 @@ a{
     border-radius: 5px;
 }
 
+.s-title{
+    font-weight: 600;
+}
+
 .al-title{
     font-size: 18px;
     color: white;
