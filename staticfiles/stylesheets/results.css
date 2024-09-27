@@ -29,7 +29,6 @@ a {
 }
 
 .songs, .albums {
-    width: 34%;
     gap: 30px;
 }
 
@@ -159,4 +158,11 @@ button.show-btn{
     display: flex;
     margin-top: 20px;
     justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .first-result {
+        width: 50%;
+    }
+    
 }
