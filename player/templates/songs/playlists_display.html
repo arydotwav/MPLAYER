@@ -11,7 +11,7 @@
     {% include 'layout/navbar.html' %}
     {% block content %}
     <h1>Your library</h1>
-    <div class="filters"><button id="lists">lists</button><button id="albums">albums</button><button id="reset">x</button></div>
+    <div class="filters"><button id="lists">Lists</button><button id="albums">Albums</button><button id="reset">x</button></div>
     <div class="playlists">
         <div class="add">
             <a href="{%url 'createplaylist' %}"><img src="{% static 'img/add.png' %}" alt=""></a>

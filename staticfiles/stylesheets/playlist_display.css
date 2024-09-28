@@ -48,19 +48,22 @@
 }
 .filters button{
     margin-right: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
     border: none;
     color: white;
-    background-color: rgb(54, 63, 139);
-    height: 30px;
-    width: 80px;
-    border-radius: 25px;
-    font-family: poppins;
+    border-radius: 35px;
+    background-color: rgb(51 34 115 / 60%);
+    padding: 10px;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border: 2.5px solid rgba(0, 0, 0, 0);
 }
 
 .filters button:hover{
     filter: brightness(0.8);
+    font-weight: 600;
+    border: 2.5px solid rgb(107, 96, 165);
 }
 
 #cover:hover{

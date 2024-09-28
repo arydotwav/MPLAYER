@@ -228,8 +228,8 @@ def uploadsong(request):
     if request.method == 'POST':
         form = SongForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # Save the form data to the database
-            return redirect('songlist')  # Redirect to the song list page
+            form.save()
+            return redirect('songlist')
     else:
         form = SongForm()
 

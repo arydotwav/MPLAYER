@@ -68,7 +68,7 @@
                 <img src="{{ song.album.cover.url }}" alt="{{ song.title }}" class="song-cover">
               {% endif %}
               <div class="song-info">
-                <p class="song-title">{{song.title}}</p>
+                <p class="song-title">{{song.title|truncatechars:18}}</p>
                 <p class="song-artist">{{song.artist}}</p>
               </div>
             </a>

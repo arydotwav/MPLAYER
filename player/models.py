@@ -40,8 +40,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     followers = models.ManyToManyField(User, related_name='user_followers', blank=True)
     following = models.ManyToManyField('self', symmetrical=False, related_name='user_following', blank=True)
-    #el symmetrical=False dice que la relacion no necesariamente es simetrica, que si el user 1 sigue el 2, 
-    #no significa que el 2 siga el 1
+    #el symmetrical=False dice que la relacion no necesariamente es simetrica, que si el user 1 sigue al 2, 
+    #no significa que el 2 siga al 1
     followed_artists = models.ManyToManyField(Artist, related_name='followed_artists', blank=True)
     liked_albums = models.ManyToManyField(Album, related_name='liked_albums', blank=True)
     liked_songs = models.ManyToManyField(Song, related_name='liked_songs', blank=True)
