@@ -59,7 +59,7 @@
         {% endif %}
         <div class="songs">
             <p class="s-title">Songs</p>
-        {% for song in songs%}
+        {% for song in songs|slice:":4" %}
         <div class="div-song">
             <a href="{% url 'song' song.id %}" class="song-link">
               {% if song.songcover %}
@@ -68,13 +68,18 @@
                 <img src="{{ song.album.cover.url }}" alt="{{ song.title }}" class="song-cover">
               {% endif %}
               <div class="song-info">
-                <p class="song-title">{{song.title}}</p>
+                <p class="song-title">{{song.title|truncatechars:18}}</p>
                 <p class="song-artist">{{song.artist}}</p>
               </div>
             </a>
-        </div>         
+        </div>       
         {% endfor %}
+        {% if songs|length > 4 %}
+        <div class="div-button">
+          <button class="show-btn" onclick="location.href='{% url 'artist_songs' songs.0.artist.id%}'">Show more</button>
+          <!--el .0 hace referencia directamente al id del artista de la primera cancion-->
         </div>
+        {% endif %} 
         <div class="albums">
             <p class="s-title">Albums</p>
             {% if albums %}

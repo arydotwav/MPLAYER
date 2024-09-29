@@ -8,7 +8,7 @@
 <body>
     {% include 'layout/navbar.html' %}
     <div class="song">
-        <p>{{songs.album}}</p>
+        <a href="{% url 'album' songs.album.id %}"><p>{{songs.album}}</p></a>
         <p>{{songs.title}}</p>
         {% if songs.album.cover %}
             <img src="{{ songs.album.cover.url }}" alt="">

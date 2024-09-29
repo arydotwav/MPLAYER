@@ -134,7 +134,15 @@ def search(request):
     return render(request, 'search/results.html', {
         'songs': songs,
         'artists': artists,
-        'albums': albums
+        'albums': albums,
+    })
+    
+def artist_songs(request, artist_id):
+    artist = Artist.objects.get(id=artist_id)
+    songs = Song.objects.filter(artist=artist)
+    return render(request, 'artist/songs.html', {
+        'songs': songs,
+        'artist': artist,
     })
     
 @login_required
@@ -220,8 +228,8 @@ def uploadsong(request):
     if request.method == 'POST':
         form = SongForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # Save the form data to the database
-            return redirect('songlist')  # Redirect to the song list page
+            form.save()
+            return redirect('songlist')
     else:
         form = SongForm()
 
@@ -279,6 +287,9 @@ def artist_detail(request, artist_id):
             'artist': artist,
             'album': album
         })
+
+
+    
     
 def followingView(request, profile_id):
     profile = get_object_or_404(Profile, pk=profile_id)

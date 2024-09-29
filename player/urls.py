@@ -22,6 +22,7 @@ urlpatterns = [
     path('artist/<int:artist_id>/', views.artist_detail, name='artist'),
     path('artist/<int:artist_id>/unfollow', views.unfollow_artist, name='unfollow'),
     path('artist/<int:artist_id>/follow', views.follow_artist, name='follow'),
+    path('artist/<int:artist_id>/songs', views.artist_songs, name='artist_songs'),
     path('results/', views.search, name='results'),
     path('profile/<int:profile_id>/following/', views.followingView, name='following'),
     path('playlist/<int:playlist_id>/delete', views.deleteplaylist, name='deleteplaylist'),

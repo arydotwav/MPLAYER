@@ -13,8 +13,6 @@ a {
     align-items: center;
 }
 
-
-
 .results h1 {
     text-align: left;
     color: white;
@@ -137,7 +135,35 @@ a {
 .div-song, .album-item {
     color: white;
 }
-  
+
+button.show-btn{
+    border-radius: 35px;
+    background-color: rgb(51 34 115 / 60%);
+    padding: 10px;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border: 2.5px solid rgba(0, 0, 0, 0);
+}
+
+.show-btn:hover{
+    font-weight: 600;
+    filter: brightness(0.8);
+    border: 2.5px solid rgb(107, 96, 165);
+}
+.div-button{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .first-result {
+        width: 50%;
+    }
+    
+}
 @media screen and  (max-width: 900px) {
     .songs{
         width: 65%;
