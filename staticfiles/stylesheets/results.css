@@ -158,4 +158,8 @@ a {
     .albums img{
         width: 65px;
     }
+
+    .song-title{
+        font-size: 14px;
+    }
 }

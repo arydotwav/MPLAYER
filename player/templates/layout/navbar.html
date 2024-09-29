@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WNRPLAYER</title>
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/home.css' %}">
+    <link rel="stylesheet" href="{%  static 'stylesheets/navbar.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <nav>
@@ -28,22 +30,33 @@
             {% else %}
                 <li><a href="{% url 'signup' %}">sign up</a></li>
             {% endif %}
-            <li><form action="{% url 'results' %}" method="POST">
-                {% csrf_token %} 
-                <input type="text" name="q" placeholder="search">
-            </form></li>
+            <li>
+                <i id="search" class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                <form id="form-search" action="{% url 'results' %}" method="POST">
+                    {% csrf_token %} 
+                    <input type="text" name="q" placeholder="search">
+                </form>
+            </li>
         </ul>
     </nav>
 </body>
 {% block content %}
 {% endblock %}
 </html>
-<style>
-    .pfp{
-        width: 35px;
-        height: 35px;
-        object-fit: cover;
-        border-radius: 100%;
-    }
-    
-</style>
+<script>
+
+    const searchButton = document.getElementById("search");
+
+    searchButton.addEventListener('click', function(){
+        const formInput = document.getElementById("form-search");
+        
+        if (formInput.style.display == "none"){
+            formInput.style.display = "block";
+        } else {
+            formInput.style.display = "none";
+        }
+
+    });
+
+
+</script>

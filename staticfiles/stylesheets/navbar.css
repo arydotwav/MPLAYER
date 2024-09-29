@@ -1,0 +1,32 @@
+.pfp{
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+#form-search{
+    display: none;
+    position: absolute;
+    top: 78px;
+    left: 60%;
+}
+
+#form-search input{
+    width: 150px;
+    border-radius: 25px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.block{
+    display: block;
+}
+
+@media screen and  (max-width: 900px) {
+    #form-search{
+        display: none;
+        position: absolute;
+        top: 78px;
+        left: 30%;
+    }
+}
