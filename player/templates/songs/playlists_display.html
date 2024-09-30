@@ -12,7 +12,7 @@
     {% include 'layout/navbar.html' %}
     {% block content %}
     <h1>Your library</h1>
-    <div class="filters"><button id="lists">Lists</button><button id="albums">Albums</button><button id="reset">x</button></div>
+    <div class="filters"><button id="lists">Lists</button><button id="albums">Albums</button><button id="reset"><i class="fa-solid fa-xmark"></i></button></div>
     <div class="playlists">
         <div class="add">
             <a href="{%url 'createplaylist' %}"><img src="{% static 'img/add.png' %}" alt=""></a>
@@ -50,13 +50,15 @@
 </html>
 <script>
     // scripts.js
-    const reset = document.getElementById('reset');
-    const lists = document.getElementById('lists');
-    const albums = document.getElementById('albums');
-    const playlist = document.getElementsByClassName('playlist');
-    const album = document.getElementsByClassName('album');
+    let reset = document.getElementById('reset');
+    let lists = document.getElementById('lists');
+    let albums = document.getElementById('albums');
+    let playlist = document.getElementsByClassName('playlist');
+    let album = document.getElementsByClassName('album');
 
     lists.addEventListener('click', () => {
+        lists.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";
+        albums.style.border = "3.5px solid transparent";
         reset.style.display = 'flex';
         for (let i = 0; i < album.length; i++) {
             album[i].style.display = 'none';
@@ -68,6 +70,8 @@
     });
 
     albums.addEventListener('click', () => {
+        albums.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";
+        lists.style.border = "3.5px solid transparent";
         reset.style.display = 'flex';
         for (let i = 0; i < playlist.length; i++){
             playlist[i].style.display = "none";
@@ -80,6 +84,8 @@
     })
 
     reset.addEventListener('click', () => {
+        albums.style.border = "3.5px solid transparent";
+        lists.style.border = "3.5px solid transparent";
         for (let i = 0; i < album.length; i++){
             album[i].style.display = 'block';
             reset.style.display = 'none';
@@ -90,5 +96,6 @@
             reset.style.display = 'none';
         }
     });
+
 </script>
 {% endblock %}
