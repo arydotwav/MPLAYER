@@ -43,7 +43,14 @@
         </a>
         <p class="list">album • <a href="{% url 'artist' album.artist.id %}">{{album.artist}}</a></p>
     </div>
-
+    {% endfor %}
+    {% for artist in user.profile.followed_artists.all %}
+    <div class="artists">
+        <a href="{% url 'artist' artist.id %}">
+            <br><img id="a-cover" src="{{artist.pic.url}}" alt="">
+            <p class="p-name">{{artist.name | truncatechars:15}}</p>
+        </a>
+    </div>
     {% endfor %}
     </div>
 </body>
@@ -55,6 +62,27 @@
     let albums = document.getElementById('albums');
     let playlist = document.getElementsByClassName('playlist');
     let album = document.getElementsByClassName('album');
+    /*let artists = document.getElemenstByClassName('artists');
+    let aBtn = document.getElementById('artistBtn');*/
+
+    /*aBtn.addEventListener('click', () => {
+        aBtn.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";
+        albums.style.border = "3.5px solid transparent";
+        lists.style.border = "3.5px solid transparent";
+        reset.style.display = 'flex';
+
+        for (let i = 0; i < album.length; i++) {
+            album[i].style.display = 'none';
+        }
+
+        for (let i = 0; i < lists.length; i++) {
+            lists[i].style.display = 'none';
+        }
+
+        for (let i = 0; i < artists.length; i++) {
+            artists[i].style.display = 'block'
+        }
+    });*/
 
     lists.addEventListener('click', () => {
         lists.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";

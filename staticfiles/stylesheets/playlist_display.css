@@ -34,6 +34,7 @@
     box-sizing: border-box;
 }
 
+
 .playlists img{
     width: 150px;
     height: 150px;
@@ -67,6 +68,10 @@
 }*/
 
 #cover:hover{
+    filter: brightness(0.8);
+}
+
+#a-cover:hover{
     filter: brightness(0.8);
 }
 
@@ -184,4 +189,24 @@ h1{
         gap: 0;
         padding: 0;
     }
+}
+
+/*artist*/
+
+.artists{
+    flex-direction: row;
+    justify-content: center;
+    padding: 25px;
+    font-family: poppins;
+    gap: 50px;
+    font-size: 20px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#a-cover{
+    border-radius: 100%;
+    object-fit: cover;
 }

@@ -147,12 +147,13 @@ def artist_songs(request, artist_id):
     
 @login_required
 def playlists(request):
-    
+    user = request.user
     albums = Album.objects.all()
     user_playlists = Playlist.objects.filter(user=request.user)
     return render(request, 'songs/playlists_display.html', {
         'playlist': user_playlists,
-        'albums': albums
+        'albums': albums,
+        'user': user
     })
     
 def showplaylist(request, playlist_id):
