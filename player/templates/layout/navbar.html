@@ -14,10 +14,16 @@
 <body>
     <nav>
         <ul>
-            <li><a href="{% url 'home' %}"><img id="home" src="{% static 'img/home.png' %}" alt=""></a></li>
+            <li><a href="{% url 'home' %}"><i class="fa-solid fa-house" id="home-icon"></i></a></li>
+            <li></li>
+                <i id="search" class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                <form id="form-search" action="{% url 'results' %}" method="POST">
+                    {% csrf_token %} 
+                    <input type="text" name="q" placeholder="search">
+                </form>
+            </li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'library' %}"><img id="lib" src="{% static 'img/library.png' %}" alt=""></a></li>
-                <li><a href="{% url 'saved' %}"><img id="liked" src="{% static 'img/liked.png' %}" alt=""></a></li>
+                <li><a href="{% url 'library' %}"><i class="fa-solid fa-bookmark" id="bookmark"></i></a></li>
                 {% if user.profile.pfp %}
                 <div id="profile">
                     <a href="{% url 'profile' user.id %}">
@@ -30,13 +36,6 @@
             {% else %}
                 <li><a href="{% url 'signup' %}">sign up</a></li>
             {% endif %}
-            <li>
-                <i id="search" class="fa-solid fa-magnifying-glass" style="color: white;"></i>
-                <form id="form-search" action="{% url 'results' %}" method="POST">
-                    {% csrf_token %} 
-                    <input type="text" name="q" placeholder="search">
-                </form>
-            </li>
         </ul>
     </nav>
 </body>

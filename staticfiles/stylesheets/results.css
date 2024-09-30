@@ -26,8 +26,13 @@ a {
     margin-bottom: -0.5em;
 }
 
-.songs, .albums {
+.songs {
     width: 38%;
+    gap: 30px;
+}
+
+.albums{
+    width: 100%;
     gap: 30px;
 }
 
@@ -170,7 +175,7 @@ button.show-btn{
     }
 
     .albums{
-        width: 80%;
+        width: 100%;
     }
 
     .first-result{
