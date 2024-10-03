@@ -12,13 +12,13 @@
     {% include 'layout/navbar.html' %}
     {% block content %}
     <h1>Your library</h1>
-    <div class="filters"><button id="lists">Lists</button><button id="albums">Albums</button><button id="reset"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="filters"><button id="lists">Lists</button><button id="albums">Albums</button><button id="artists">Artists</button><button id="reset"><i class="fa-solid fa-xmark"></i></button></div>
     <div class="playlists">
         <div class="add">
             <a href="{%url 'createplaylist' %}"><img src="{% static 'img/add.png' %}" alt=""></a>
         </div>
-        <div>
-            <a href="{% url 'saved' %}"><i class="fa-solid fa-heart" style="color: white;"></i></a>
+        <div class="saved">
+            <a href="{% url 'saved' %}"><br><i class="fa-solid fa-heart" id="saved"></i></a>
         </div>
     {% for play in playlist %}
     <div class="playlist">
@@ -62,30 +62,31 @@
     let albums = document.getElementById('albums');
     let playlist = document.getElementsByClassName('playlist');
     let album = document.getElementsByClassName('album');
-    /*let artists = document.getElemenstByClassName('artists');
-    let aBtn = document.getElementById('artistBtn');*/
+    let artists = document.getElementsByClassName('artists');
+    let aBtn = document.getElementById('artists');
 
-    /*aBtn.addEventListener('click', () => {
+    aBtn.addEventListener('click', () => {
         aBtn.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";
         albums.style.border = "3.5px solid transparent";
         lists.style.border = "3.5px solid transparent";
         reset.style.display = 'flex';
 
-        for (let i = 0; i < album.length; i++) {
-            album[i].style.display = 'none';
-        }
-
-        for (let i = 0; i < lists.length; i++) {
-            lists[i].style.display = 'none';
+        for (let i = 0; i < playlist.length; i++) {
+            playlist[i].style.display = 'none';
         }
 
         for (let i = 0; i < artists.length; i++) {
             artists[i].style.display = 'block'
         }
-    });*/
+
+        for (let i = 0; i < album.length; i++) {
+            album[i].style.display = 'none';
+        }
+    });
 
     lists.addEventListener('click', () => {
         lists.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";
+        aBtn.style.border = "3.5px solid transparent";
         albums.style.border = "3.5px solid transparent";
         reset.style.display = 'flex';
         for (let i = 0; i < album.length; i++) {
@@ -95,11 +96,16 @@
         for (let i = 0; i < playlist.length; i++) {
             playlist[i].style.display = 'block'
         }
+
+        for (let i = 0; i < artists.length; i++) {
+            artists[i].style.display = 'none'
+        }
     });
 
     albums.addEventListener('click', () => {
         albums.style.border = "3.5px solid rgba(135, 24, 204, 0.6)";
         lists.style.border = "3.5px solid transparent";
+        aBtn.style.border = "3.5px solid transparent";
         reset.style.display = 'flex';
         for (let i = 0; i < playlist.length; i++){
             playlist[i].style.display = "none";
@@ -108,12 +114,17 @@
         for (let i = 0; i < album.length; i++){
             album[i].style.display = 'block'
         }
+
+        for (let i = 0; i < artists.length; i++) {
+            artists[i].style.display = 'none'
+        }
     
     })
 
     reset.addEventListener('click', () => {
         albums.style.border = "3.5px solid transparent";
         lists.style.border = "3.5px solid transparent";
+        aBtn.style.border = "3.5px solid transparent"; 
         for (let i = 0; i < album.length; i++){
             album[i].style.display = 'block';
             reset.style.display = 'none';
@@ -121,6 +132,11 @@
 
         for (let i = 0; i < playlist.length; i++){
             playlist[i].style.display = 'block';
+            reset.style.display = 'none';
+        }
+
+        for (let i = 0; i < artists.length; i++) {
+            artists[i].style.display = 'block';
             reset.style.display = 'none';
         }
     });

@@ -20,38 +20,46 @@
         {% endif %}
         <div class="all">
             {% if rec_artist %}
-        <a class="a-artist" href="{% url 'artist' rec_artist.id %}">
-            {% if rec_artist.pic %}
-            <img id="artist-img" src="{{ rec_artist.pic.url }}" alt="">
-            {% else %}
-                <p>no pic</p>
-            {% endif %}
-            <p>{{rec_artist.name}}</p>
-        </a>
+        <div>
+            <a class="a-artist" href="{% url 'artist' rec_artist.id %}">
+                {% if rec_artist.pic %}
+                <img id="artist-img" src="{{ rec_artist.pic.url }}" alt="">
+                {% else %}
+                    <p>no pic</p>
+                {% endif %}
+                <p>{{rec_artist.name}}</p>
+            </a>
+        </div>
         {% endif %}
         {% if rec_playlist %}
-        <a class="p-playlist" href="{% url 'showplaylist' rec_playlist.id %}">
-            <img src="{{ rec_playlist.photo.url }}" alt="">
-            <p>{{rec_playlist.title | truncatechars:15}}</p>
-        </a>
+        <div>
+            <a class="p-playlist" href="{% url 'showplaylist' rec_playlist.id %}">
+                <img src="{{ rec_playlist.photo.url }}" alt="">
+                <p>{{rec_playlist.title | truncatechars:15}}</p>
+            </a>
+        </div>
         {% endif %}
         {% if user.is_authenticated %}
             {% for album in rec_albums %}
-            <a class='a-height' href="{% url 'album' album.id %}">
-                {% if album.cover %}
-                <img src="{{ album.cover.url }}" alt="cf">
-                {% endif %}
-            <p class="a-title">{{album.title | truncatechars:15}}</p>
-            </a>
+            <div>
+                <a class='a-height' href="{% url 'album' album.id %}">
+                    {% if album.cover %}
+                    <img src="{{ album.cover.url }}" alt="cf">
+                    {% endif %}
+                <p class="a-title">{{album.title | truncatechars:15}}</p>
+                </a>
+            </div>
             {% endfor %}
         {% else %}
             {% for album in rec_albums %}
-            <a class='a-height' href="{% url 'album' album.id %}">
-                {% if album.cover %}
-                <img src="{{ album.cover.url }}" alt="cf">
-                {% endif %}
-            <p class="a-title">{{album.title | truncatechars:15}}</p>
-            </a>
+            <div>
+                <a class='a-height' href="{% url 'album' album.id %}">
+                    {% if album.cover %}
+                    <img src="{{ album.cover.url }}" alt="cf">
+                    {% endif %}
+                <p class="a-title">{{album.title | truncatechars:15}}</p>
+                </a>
+            </div>
             {% endfor %}
         {% endif %}
         </div>

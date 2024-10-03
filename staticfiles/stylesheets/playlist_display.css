@@ -2,7 +2,6 @@
     display: flex;
     flex-wrap: wrap; 
     border: 1px solid black;
-    min-height: 100vh;
     background: linear-gradient(to bottom, rgb(20 19 39) 0%, rgba(133, 15, 179, 0.493) 100%);
 }
 #reset{
@@ -34,7 +33,11 @@
     box-sizing: border-box;
 }
 
-
+.album img{
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
 .playlists img{
     width: 150px;
     height: 150px;
@@ -149,9 +152,19 @@ h1{
         flex-wrap: wrap; 
     }
 
+    .playlist img{
+        border-radius: 5px;
+    }
+
     #cover{
         width: 200px;
         height: 200px;
+        border-radius: 5px;
+    }
+    #saved.fa-heart{
+        width: 200px;
+        height: 200px;
+        border-radius: 5px;
     }
 
     .playlists > div {
@@ -170,6 +183,7 @@ h1{
         margin-bottom: 10px;
     }
 
+    
     .add{
         margin-left: 0;
     }
@@ -183,12 +197,49 @@ h1{
         flex-wrap: wrap; 
     }
 
+    .playlist img{
+        border-radius: 5px;
+    }
+
     .playlists > div {
         flex: 0 0 calc(50% - 6px); 
         margin-bottom: 16px; 
         gap: 0;
         padding: 0;
     }
+}
+
+.saved{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 25px;
+    font-family: poppins;
+    gap: 50px;
+    font-size: 20px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+#saved{
+    font-size: 75px;
+    background-color: rgba(74, 44, 122, 0.418);
+    border-radius: 5px;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+#saved:hover{
+    cursor: pointer;
+    filter: brightness(0.8);
 }
 
 /*artist*/
