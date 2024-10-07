@@ -40,7 +40,7 @@
             {% for song in album.song_set.all %}
             <div class="cards song-details" onclick="togglePlayPause(this.closest('.song-details'))">
                 <div class="rest-1">
-                    <p class="p-description">{{song.title}}</p>
+                    <p class="p-description">{{song.title|truncatechars:18}}</p>
                     {% if song.artist %}
                     <a href="{% url 'artist' song.artist.id %}"><p class="p-artist">{{song.artist}}</p></a>
                     {% endif %}

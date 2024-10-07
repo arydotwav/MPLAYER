@@ -133,6 +133,7 @@ h1{
 .add img{
     width: 30px;
     height: 30px;
+    border-radius: 5px;
 }
 
 .add:hover{
@@ -156,7 +157,7 @@ h1{
         border-radius: 5px;
     }
 
-    #cover{
+    #cover, #saved{
         width: 200px;
         height: 200px;
         border-radius: 5px;
@@ -183,6 +184,10 @@ h1{
         margin-bottom: 10px;
     }
 
+    .artists {
+        display: flex;
+        align-items: center;
+    }
     
     .add{
         margin-left: 0;
@@ -197,7 +202,26 @@ h1{
         flex-wrap: wrap; 
     }
 
+    .p-name{
+        font-size: 15px;
+    }
+
     .playlist img{
+        border-radius: 5px;
+    }
+
+    .playlist img{
+        border-radius: 5px;
+    }
+
+    #cover, #saved{
+        width: 150px;
+        height: 150px;
+        border-radius: 5px;
+    }
+    #saved.fa-heart{
+        width: 150px;
+        height: 150px;
         border-radius: 5px;
     }
 
