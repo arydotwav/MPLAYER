@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/album.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     {% include 'layout/navbar.html' %}
@@ -21,12 +22,12 @@
                 {% if album in liked_albums %}
                     <form action="{% url 'unlike' album.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit">Unlike</button>
+                        <button id="unlikeBtn" type="submit"><i id="unlike" class="fa-solid fa-heart"></i></button>
                     </form>
                 {% else %}	
                     <form action="{% url 'like' album.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit">Like</button>
+                        <button type="submit" id="likeBtn"><i id="like" class="fa-regular fa-heart"></i></button>
                     </form>
                 {% endif %}
             {% else %}
@@ -39,7 +40,7 @@
             {% for song in album.song_set.all %}
             <div class="cards song-details" onclick="togglePlayPause(this.closest('.song-details'))">
                 <div class="rest-1">
-                    <p class="p-description">{{song.title}}</p>
+                    <p class="p-description">{{song.title|truncatechars:18}}</p>
                     {% if song.artist %}
                     <a href="{% url 'artist' song.artist.id %}"><p class="p-artist">{{song.artist}}</p></a>
                     {% endif %}
@@ -120,7 +121,5 @@
            songDetailElement.closest('.cards').classList.remove('playing');
        }
        //
-   
-       
    
    </script>

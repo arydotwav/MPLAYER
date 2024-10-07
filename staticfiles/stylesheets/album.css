@@ -260,3 +260,14 @@ audio {
     }
 }
 
+#unlikeBtn, #likeBtn{
+    margin-top: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#unlike, #like{
+    font-size: 20px;
+    color: white;
+}
