@@ -9,6 +9,14 @@
     font-family: poppins;	
 }
 
+a{
+    color: white;
+}
+
+.top a{
+    color: white;
+}
+
 .song-details:hover{
     .play-button{
         display: block;
@@ -141,6 +149,7 @@ audio{
     border: 0.1em solid rgba(255, 255, 255, 0.479);
     background-color: rgba(0, 0, 0, 0.589);
 }
+
 
 /*bottom part display*/
 
