@@ -58,23 +58,20 @@
 <script>
     var audioPlayers = document.querySelectorAll('audio[id^="audioPlayer"]');
     var currentAudio = null;
-    var currentlyPlayingDiv = null; // Variable para rastrear el div actualmente en reproducción
+    var currentlyPlayingDiv = null;
     
-    // Mueve la función togglePlayPause fuera del DOMContentLoaded para hacerla accesible globalmente
     window.togglePlayPause = function(songDetailElement) {
         var audioPlayer = songDetailElement.querySelector('audio');
         var playIcon = songDetailElement.querySelector('#playIcon');
         var pauseIcon = songDetailElement.querySelector('#pauseIcon');
         var songDetailsDiv = songDetailElement.closest('.song-details');
     
-        // Si se está reproduciendo otro audio, pausar el audio actual y restablecer el botón
         if (currentAudio && currentAudio !== audioPlayer) {
             currentAudio.pause();
             resetPlayPauseButton(currentlyPlayingDiv);
             currentlyPlayingDiv.classList.remove('playing');
         }
     
-        // Reproducir o pausar el audio seleccionado
         if (audioPlayer.paused) {
             audioPlayer.volume = 0.1;
             audioPlayer.play();
@@ -83,7 +80,6 @@
             currentAudio = audioPlayer;
             currentlyPlayingDiv = songDetailsDiv;
     
-            // Añade la clase .playing al contenedor del div
             songDetailsDiv.classList.add('playing');
         } else {
             audioPlayer.pause();
@@ -92,12 +88,10 @@
             currentAudio = null;
             currentlyPlayingDiv = null;
     
-            // Remueve la clase .playing del contenedor del div
             songDetailsDiv.classList.remove('playing');
         }
     };
     
-    // Evento para manejar el final de la canción
     audioPlayers.forEach(function(audioPlayer) {
         audioPlayer.addEventListener('ended', function() {
             resetPlayPauseButton(currentlyPlayingDiv);
@@ -107,9 +101,8 @@
         });
     });
     
-    // Función para restablecer el botón de reproducción/pausa
     function resetPlayPauseButton(songDetailElement) {
-        if (!songDetailElement) return; // Asegúrate de que el elemento exista
+        if (!songDetailElement) return;
         var playIcon = songDetailElement.querySelector('#playIcon');
         var pauseIcon = songDetailElement.querySelector('#pauseIcon');
         playIcon.style.display = 'block';

@@ -1,40 +1,68 @@
-#logout{
+#logout {
     z-index: 1;
-    border-radius: 5px;
+    border-radius: 50px;
     font-family: poppins;
     font-size: 13px;
     font-weight: 700;
-    border-radius: 50px;
 }
-a{
+a {
     color: white;
 }
-.followers p{
+.followers p {
     color: white;
 }
-.followers a:hover{
-    text-decoration: underline;
-    p {
-        color: rgb(124, 124, 124);}
-}
-
-#logout:hover{
+.followers a:hover {
     text-decoration: underline;
 }
-
-*{
+.followers a:hover p {
+    color: rgb(124, 124, 124);
+}
+#logout:hover {
+    text-decoration: underline;
+}
+* {
     text-decoration: none;
 }
-
-.profile-pic{
+.profile-pic-wrapper {
+    position: relative;
     width: 110px;
     height: 110px;
+}
+#profile-pic {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    transition: filter 0.3s ease;
 }
-
-
-.followers{
+.editar {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0);
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    font-family: poppins;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s ease, color 0.3s ease;
+}
+.profile-pic-wrapper:hover .editar {
+    opacity: 1;
+    visibility: visible;
+    color: white;
+}
+.profile-pic-wrapper:hover #profile-pic {
+    filter: brightness(0.6);
+}
+.followers {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -45,28 +73,24 @@ a{
     color: white;
     font-weight: 400;
 }
-
 .image-section {
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
-
 .profile > p.user,
 .followers,
 .profile > form,
 #logout {
-    margin: 0; 
+    margin: 0;
     padding: 0;
 }
-
-.data-pic{
+.data-pic {
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 5px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
-
-.titulo{
+.titulo {
     font-size: 20px;
     margin: 0;
     padding: 0;
@@ -74,31 +98,30 @@ a{
     color: white;
     font-family: poppins;
 }
-
-.lista{
+.lista {
     font-family: poppins;
     font-size: 14px;
     color: rgb(116, 116, 116);
     font-weight: 500;
+    margin-top: -15px;
 }
-
 @media screen and (max-width: 768px) {
-    .playlist a, p{
+    .playlist a,
+    p {
         font-size: 12px;
     }
-    .info-section{
+    .info-section {
         display: flex;
         flex-direction: column;
     }
     .followers {
-        flex-direction: row; 
+        flex-direction: row;
     }
-
     #logout {
-        margin-top: 20px; 
+        margin-top: 20px;
     }
 }
-.playlist-profile{
+.playlist-profile {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -109,32 +132,29 @@ a{
     margin: 0;
     box-sizing: border-box;
 }
-
-
-.data-pic:hover{
+.data-pic:hover {
     opacity: 0.7;
     cursor: pointer;
 }
-
-.lista{
-    margin-top: -15px;
-}
-
 .profile {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 50px; 
-    flex-wrap: wrap; 
-    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
     justify-content: center;
     background: rgb(27, 26, 51);
-    background: linear-gradient(273deg, rgb(21, 19, 53) 0%, rgb(23, 23, 48) 35%, rgba(0, 0, 0, 1) 78%, rgb(0 0 0) 100%);
+    background: linear-gradient(
+        273deg,
+        rgb(21, 19, 53) 0%,
+        rgb(23, 23, 48) 35%,
+        rgba(0, 0, 0, 1) 78%,
+        rgb(0 0 0) 100%
+    );
     height: 300px;
     transition: all 0.3s ease;
     border-bottom: 1px solid rgb(23, 21, 49);
 }
-
 .profile::after {
     content: '';
     position: absolute;
@@ -146,9 +166,7 @@ a{
     background: linear-gradient(to bottom, rgba(23, 12, 175, 0) 0%, rgb(20 19 39) 100%);
     pointer-events: none;
 }
-
-
-.user{
+.user {
     font-weight: 800;
     color: white;
     font-size: 25px;
@@ -157,69 +175,24 @@ a{
     margin-bottom: -0.3em;
     padding: 0;
 }
-#profile-pic {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    object-fit: cover;
-    transition: filter 0.3s ease;
-}
-
-.editar {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translate(-215%, 90%);
-    color: rgba(255, 255, 255, 0);
-    font-size: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 5px;
-    font-family: poppins;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    transition: opacity 0.3s ease, visibility 0.3s ease, color 0.3s ease;
-}
-
-.profile a:hover .editar {
-    opacity: 1;
-    visibility: visible;
-    color: white;
-
-}
-
-#profile-pic:hover {
-    filter: brightness(0.6);
-}
-
 @media screen and (max-width: 820px) {
     .playlist-profile {
         gap: 20px;
     }
-
     .editar {
         display: none;
     }
-    .profile{
+    .profile {
         gap: 20px;
     }
-
-    .playlist-profile{
-        img{
-            width: 95px;
-            height: 95px;
-        }
-
-        .titulo{
-            font-size: 14px;
-        }
-
-        .lista{
-            font-size: 12px;
-        }
+    .playlist-profile img {
+        width: 95px;
+        height: 95px;
+    }
+    .titulo {
+        font-size: 14px;
+    }
+    .lista {
+        font-size: 12px;
     }
 }

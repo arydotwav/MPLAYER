@@ -29,13 +29,13 @@
             </form>
             <button class="delete" type="submit">Eliminar</button>
             <div class="confirm">
-                <h2>¿Estás seguro de que deseas eliminar la playlist "{{ playlist.title }}"?</h2>
-                <p>Esta acción no se puede deshacer.</p>
+                <h2>Are you sure you want to delete "{{ playlist.title }}"?</h2>
+                <p>You can not undo this action</p>
 
                 <form method="post" action="{% url 'deleteplaylist' playlist.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-                    <a href="{% url 'update_playlist' playlist.id %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Yes, delete</button>
+                    <a href="{% url 'update_playlist' playlist.id %}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

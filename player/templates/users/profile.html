@@ -11,11 +11,14 @@
   {% block content %}
   <div class="profile">
     <div class="image-section">
+    <div class="profile-pic-wrapper">
       <a href="{% url 'updateprofile' user.profile.id %}">
         <img src="{{ profile.pfp.url }}" alt="{{ user.username }}'s profile picture" id="profile-pic">
-        <p class="editar">editar</p>
       </a>
+      <p class="editar">Edit</p>
     </div>
+  </div>
+
     <div class="info-section">
       <p class="user">{{profile.nickname}}</p>
       <div class="followers">

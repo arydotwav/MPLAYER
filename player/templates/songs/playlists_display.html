@@ -27,7 +27,7 @@
             <img id="cover" src="{{ play.photo.url }}" alt="?">
             <br><p class="p-name">{{play.title | truncatechars:15}} </p><p class="list">list • {{user.profile.nickname}} </p>
             {% else %}
-            <p>no photo</p>
+            <p>Oops! No pic to display.</p>
             <br><p class="p-name">{{play.title | truncatechars:15}} </p><p class="list">list • {{user.profile.nickname}} </p>
             {% endif %}
         </a>
